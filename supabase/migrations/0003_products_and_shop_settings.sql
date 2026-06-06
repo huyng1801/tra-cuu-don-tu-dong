@@ -86,7 +86,9 @@ using (
   and (storage.foldername(name))[1] = auth.uid()::text
 );
 
-create or replace view public.order_shipments
+drop view if exists public.order_shipments;
+
+create view public.order_shipments
 with (security_invoker = true)
 as
 select
