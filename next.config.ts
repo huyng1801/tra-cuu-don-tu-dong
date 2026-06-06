@@ -3,6 +3,11 @@ import type { NextConfig } from "next";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "6mb",
+    },
+  },
   images: supabaseUrl
     ? {
         remotePatterns: [

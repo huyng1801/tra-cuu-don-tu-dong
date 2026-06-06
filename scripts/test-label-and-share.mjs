@@ -108,10 +108,10 @@ async function main() {
 
     // 3) Share dialog UX/UI
     await page.getByRole("button", { name: "Chia sẻ đơn" }).click();
-    await page.waitForSelector("text=Thông tin đơn hàng");
+    await page.getByText(/Thông tin đơn hàng/i).waitFor({ timeout: 10000 });
     await page.waitForSelector("text=Nhãn sản phẩm");
 
-    const shareCard = page.locator("text=Thông tin đơn hàng").locator("..").locator("..");
+    const shareCard = page.getByText(/Thông tin đơn hàng/i).locator("..").locator("..");
     await shareCard.screenshot({ path: path.join(OUT, `share-card-${STAMP}.png`) });
 
     const shareLabel = page.locator('img[alt^="Nhãn "]').last();

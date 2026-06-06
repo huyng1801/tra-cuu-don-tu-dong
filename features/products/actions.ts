@@ -9,7 +9,7 @@ import {
   createProduct,
   deleteProduct,
   updateProduct,
-  uploadProductLabel,
+  updateProductLabelPath,
 } from "@/features/products/repository";
 
 async function getCurrentOwnerUserId() {
@@ -25,7 +25,7 @@ async function getCurrentOwnerUserId() {
   return { supabase, ownerUserId: user.id };
 }
 
-export async function createProductAction(input: ProductFormValues, labelFile?: File | null) {
+export async function createProductAction(input: ProductFormValues) {
   const parsed = productFormSchema.safeParse(input);
 
   if (!parsed.success) {
@@ -39,11 +39,6 @@ export async function createProductAction(input: ProductFormValues, labelFile?: 
   try {
     const { supabase, ownerUserId } = await getCurrentOwnerUserId();
     const product = await createProduct(supabase, ownerUserId, parsed.data);
-
-    if (labelFile && labelFile.size > 0) {
-      await uploadProductLabel(supabase, ownerUserId, product.id, labelFile);
-    }
-
     revalidatePath("/products");
     revalidatePath("/orders");
 
@@ -61,11 +56,7 @@ export async function createProductAction(input: ProductFormValues, labelFile?: 
   }
 }
 
-export async function updateProductAction(
-  id: string,
-  input: ProductFormValues,
-  labelFile?: File | null,
-) {
+export async function updateProductAction(id: string, input: ProductFormValues) {
   const parsed = productFormSchema.safeParse(input);
 
   if (!parsed.success) {
@@ -78,11 +69,6 @@ export async function updateProductAction(
   try {
     const { supabase, ownerUserId } = await getCurrentOwnerUserId();
     await updateProduct(supabase, ownerUserId, id, parsed.data);
-
-    if (labelFile && labelFile.size > 0) {
-      await uploadProductLabel(supabase, ownerUserId, id, labelFile);
-    }
-
     revalidatePath("/products");
     revalidatePath(`/products/${id}`);
     revalidatePath("/orders");
@@ -90,6 +76,41 @@ export async function updateProductAction(
     return {
       success: true,
       message: "Đã cập nhật sản phẩm.",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: getErrorMessage(error),
+    };
+  }
+}
+
+export async function saveProductLabelPathAction(productId: string, labelImagePath: string) {
+  if (!labelImagePath.trim()) {
+    return {
+      success: false,
+      message: "Đường dẫn ảnh nhãn không hợp lệ.",
+    };
+  }
+
+  try {
+    const { supabase, ownerUserId } = await getCurrentOwnerUserId();
+
+    if (!labelImagePath.startsWith(`${ownerUserId}/`)) {
+      return {
+        success: false,
+        message: "Không thể lưu ảnh nhãn ngoài phạm vi tài khoản.",
+      };
+    }
+
+    await updateProductLabelPath(supabase, ownerUserId, productId, labelImagePath);
+    revalidatePath("/products");
+    revalidatePath(`/products/${productId}`);
+    revalidatePath("/orders");
+
+    return {
+      success: true,
+      message: "Đã lưu ảnh nhãn lên Supabase.",
     };
   } catch (error) {
     return {

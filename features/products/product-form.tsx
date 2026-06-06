@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
-import { createProductAction, updateProductAction } from "@/features/products/actions";
+import { createProductAction, saveProductLabelPathAction, updateProductAction } from "@/features/products/actions";
 import {
   productFormSchema,
   type ProductFormInput,
@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getProductLabelUrl } from "@/lib/product-labels";
+import { uploadProductLabelFromBrowser } from "@/lib/product-label-client";
 import { validateProductLabelFile } from "@/lib/product-label-upload";
 
 interface ProductFormProps {
@@ -95,27 +96,65 @@ export function ProductForm({
 
     startTransition(async () => {
       if (mode === "create") {
-        const result = await createProductAction(values, labelFile);
+        const result = await createProductAction(values);
 
         if (!result.success) {
           toast.error(result.message);
           return;
         }
 
-        toast.success(result.message);
+        if (labelFile && result.productId) {
+          try {
+            const path = await uploadProductLabelFromBrowser(result.productId, labelFile);
+            const labelResult = await saveProductLabelPathAction(result.productId, path);
+
+            if (!labelResult.success) {
+              toast.error(labelResult.message);
+            }
+          } catch (error) {
+            toast.error(
+              error instanceof Error
+                ? `Đã tạo sản phẩm nhưng upload nhãn thất bại: ${error.message}`
+                : "Đã tạo sản phẩm nhưng upload nhãn thất bại.",
+            );
+          }
+        }
+
+        toast.success("Đã tạo sản phẩm mới.");
 
         if (result.productId) {
           router.push(`/products/${result.productId}`);
         }
       } else {
-        const result = await updateProductAction(productId ?? "", values, labelFile);
+        const result = await updateProductAction(productId ?? "", values);
 
         if (!result.success) {
           toast.error(result.message);
           return;
         }
 
-        toast.success(result.message);
+        if (labelFile && productId) {
+          try {
+            const path = await uploadProductLabelFromBrowser(productId, labelFile);
+            const labelResult = await saveProductLabelPathAction(productId, path);
+
+            if (!labelResult.success) {
+              toast.error(labelResult.message);
+              return;
+            }
+
+            toast.success("Đã cập nhật sản phẩm và ảnh nhãn.");
+          } catch (error) {
+            toast.error(
+              error instanceof Error
+                ? `Đã lưu sản phẩm nhưng upload nhãn thất bại: ${error.message}`
+                : "Đã lưu sản phẩm nhưng upload nhãn thất bại.",
+            );
+            return;
+          }
+        } else {
+          toast.success(result.message);
+        }
       }
 
       router.refresh();
