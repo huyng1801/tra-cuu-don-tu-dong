@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     const data = await listShipments(context.supabase, context.ownerUserId, searchParams);
     return jsonSuccess(data);
   } catch (error) {
-    return jsonError(error instanceof Error ? error.message : "Khong tai duoc van don.", 500);
+    return jsonError(error instanceof Error ? error.message : "Không tải được vận đơn.", 500);
   }
 }
 
@@ -30,14 +30,13 @@ export async function POST(request: Request) {
   const parsed = shipmentFormSchema.safeParse(body);
 
   if (!parsed.success) {
-    return jsonError(parsed.error.issues[0]?.message ?? "Du lieu khong hop le.", 400);
+    return jsonError(parsed.error.issues[0]?.message ?? "Dữ liệu không hợp lệ.", 400);
   }
 
   try {
     const data = await createShipment(context.supabase, context.ownerUserId, parsed.data);
     return jsonSuccess(data, { status: 201 });
   } catch (error) {
-    return jsonError(error instanceof Error ? error.message : "Tao van don that bai.", 500);
+    return jsonError(error instanceof Error ? error.message : "Tạo vận đơn thất bại.", 500);
   }
 }
-

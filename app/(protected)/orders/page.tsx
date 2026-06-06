@@ -31,10 +31,10 @@ export default async function OrdersPage({
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Don hang"
-        description="Quan ly danh sach don va tien do xu ly tu xac nhan den giao thanh cong."
+        title="Đơn hàng"
+        description="Quản lý danh sách đơn và tiến độ xử lý từ xác nhận đến giao thành công."
         actionHref="/orders/new"
-        actionLabel="Tao don hang"
+        actionLabel="Tạo đơn hàng"
       />
 
       <form className="grid gap-3 xl:grid-cols-[minmax(0,360px)_200px_auto]">
@@ -44,7 +44,7 @@ export default async function OrdersPage({
             type="search"
             name="q"
             defaultValue={result.q}
-            placeholder="Tim ma don hoac san pham"
+            placeholder="Tìm mã đơn hoặc sản phẩm"
             className="h-11 w-full rounded-2xl border border-border/80 bg-card pl-11 pr-4 text-sm outline-none focus:ring-2 focus:ring-ring/40"
           />
         </div>
@@ -53,7 +53,7 @@ export default async function OrdersPage({
           defaultValue={result.status ?? ""}
           className="h-11 rounded-2xl border border-border/80 bg-card px-4 text-sm outline-none focus:ring-2 focus:ring-ring/40"
         >
-          <option value="">Tat ca trang thai</option>
+          <option value="">Tất cả trạng thái</option>
           {ORDER_STATUS_VALUES.map((status) => (
             <option key={status} value={status}>
               {ORDER_STATUS_LABELS[status]}
@@ -61,17 +61,17 @@ export default async function OrdersPage({
           ))}
         </select>
         <Button type="submit" variant="outline">
-          Loc danh sach
+          Lọc danh sách
         </Button>
       </form>
 
       {result.items.length === 0 ? (
         <EmptyState
-          title="Chua co don hang"
-          description="Tao don dau tien de bat dau theo doi doanh thu va tien do giao hang."
+          title="Chưa có đơn hàng"
+          description="Tạo đơn đầu tiên để bắt đầu theo dõi doanh thu và tiến độ giao hàng."
         />
       ) : (
-        <DataTable headers={["Ma don", "Khach hang", "San pham", "Trang thai", "Van don", ""]}>
+        <DataTable headers={["Mã đơn", "Khách hàng", "Sản phẩm", "Trạng thái", "Vận đơn", ""]}>
           {result.items.map((order) => (
             <DataRow key={order.id}>
               <DataCell>
@@ -87,7 +87,7 @@ export default async function OrdersPage({
                     <p className="text-xs text-muted-foreground">{order.customer.phone}</p>
                   </div>
                 ) : (
-                  <span className="text-muted-foreground">Khong tim thay</span>
+                  <span className="text-muted-foreground">Không tìm thấy</span>
                 )}
               </DataCell>
               <DataCell>
@@ -110,12 +110,12 @@ export default async function OrdersPage({
                     <ShippingStatusBadge status={order.shipment.shipping_status as never} />
                   </div>
                 ) : (
-                  <span className="text-muted-foreground">Chua gan</span>
+                  <span className="text-muted-foreground">Chưa gắn</span>
                 )}
               </DataCell>
               <DataCell className="text-right">
                 <Button asChild variant="outline" size="sm">
-                  <Link href={`/orders/${order.id}`}>Chi tiet</Link>
+                  <Link href={`/orders/${order.id}`}>Chi tiết</Link>
                 </Button>
               </DataCell>
             </DataRow>
@@ -125,4 +125,3 @@ export default async function OrdersPage({
     </div>
   );
 }
-

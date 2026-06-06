@@ -30,7 +30,7 @@ async function ensureUserProfile(user: User) {
           user.user_metadata?.full_name ??
           user.user_metadata?.name ??
           user.email?.split("@")[0] ??
-          "Chu shop",
+          "Chủ shop",
       },
       {
         onConflict: "id",
@@ -61,4 +61,3 @@ export async function requireCurrentUserProfile() {
 
   return { user, profile };
 }
-

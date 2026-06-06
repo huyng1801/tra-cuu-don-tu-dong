@@ -172,7 +172,7 @@ export async function createShipment(
   }
 
   if ((count ?? 0) > 0) {
-    throw new Error("Moi don chi duoc gan mot van don.");
+    throw new Error("Mỗi đơn chỉ được gắn một vận đơn.");
   }
 
   const { data, error } = await supabase
@@ -226,4 +226,3 @@ export async function updateShipment(
 
   return data;
 }
-

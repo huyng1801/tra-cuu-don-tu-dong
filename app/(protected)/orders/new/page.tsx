@@ -33,11 +33,11 @@ export default async function NewOrderPage({
   }
 
   const defaultValues = eventPrefill
-    ? {
+      ? {
         customer_mode: "new" as const,
         customer_name: eventPrefill.customer_name ?? "",
         customer_phone: eventPrefill.customer_phone ?? "",
-        product_name: "Don tu Facebook event",
+        product_name: "Đơn từ Facebook event",
         note: eventPrefill.note,
       }
     : {
@@ -52,14 +52,14 @@ export default async function NewOrderPage({
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Tao don hang"
-        description="Chon khach co san hoac tao nhanh khach moi ngay trong form don."
+        title="Tạo đơn hàng"
+        description="Chọn khách có sẵn hoặc tạo nhanh khách mới ngay trong form đơn."
       />
       <Card>
         <CardHeader>
-          <CardTitle>Thong tin don hang</CardTitle>
+          <CardTitle>Thông tin đơn hàng</CardTitle>
           <CardDescription>
-            Tong tien duoc tinh tu dong tu so luong va gia ban.
+            Tổng tiền được tính tự động từ số lượng và giá bán.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -69,4 +69,3 @@ export default async function NewOrderPage({
     </div>
   );
 }
-

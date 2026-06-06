@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     return jsonError(
-      error instanceof Error ? error.message : "Webhook Facebook xu ly that bai.",
+      error instanceof Error ? error.message : "Webhook Facebook xử lý thất bại.",
       500,
     );
   }

@@ -13,7 +13,6 @@ export async function GET() {
     const data = await getDashboardMetrics(context.supabase, context.ownerUserId);
     return jsonSuccess(data);
   } catch (error) {
-    return jsonError(error instanceof Error ? error.message : "Khong tai duoc dashboard.", 500);
+    return jsonError(error instanceof Error ? error.message : "Không tải được dashboard.", 500);
   }
 }
-

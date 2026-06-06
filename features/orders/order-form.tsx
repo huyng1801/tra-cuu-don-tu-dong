@@ -110,7 +110,7 @@ export function OrderForm({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="existing">Chon khach co san</SelectItem>
-                  <SelectItem value="new">Tao nhanh khach moi</SelectItem>
+                  <SelectItem value="new">Tạo nhanh khách mới</SelectItem>
                 </SelectContent>
               </Select>
             )}
@@ -118,14 +118,14 @@ export function OrderForm({
         </div>
         {customerMode === "existing" ? (
           <div className="space-y-2">
-            <Label>Khach hang</Label>
+            <Label>Khách hàng</Label>
             <Controller
               control={form.control}
               name="customer_id"
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Chon khach hang" />
+                    <SelectValue placeholder="Chọn khách hàng" />
                   </SelectTrigger>
                   <SelectContent>
                     {customers.map((customer) => (
@@ -147,19 +147,19 @@ export function OrderForm({
           <div className="grid gap-5 md:grid-cols-3">
             <Field
               name="customer_name"
-              label="Ten khach moi"
+              label="Tên khách mới"
               error={form.formState.errors.customer_name?.message}
               input={
                 <Input
                   id="customer_name"
-                  placeholder="Nguyen Van A"
+                  placeholder="Nguyễn Văn A"
                   {...form.register("customer_name")}
                 />
               }
             />
             <Field
               name="customer_phone"
-              label="So dien thoai"
+              label="Số điện thoại"
               error={form.formState.errors.customer_phone?.message}
               input={
                 <Input
@@ -171,12 +171,12 @@ export function OrderForm({
             />
             <Field
               name="customer_address"
-              label="Dia chi"
+              label="Địa chỉ"
               error={form.formState.errors.customer_address?.message}
               input={
                 <Input
                   id="customer_address"
-                  placeholder="Dia chi giao hang"
+                  placeholder="Địa chỉ giao hàng"
                   {...form.register("customer_address")}
                 />
               }
@@ -188,18 +188,18 @@ export function OrderForm({
       <div className="grid gap-5 md:grid-cols-2">
         <Field
           name="product_name"
-          label="Ten san pham"
+          label="Tên sản phẩm"
           error={form.formState.errors.product_name?.message}
           input={
             <Input
               id="product_name"
-              placeholder="Combo my pham..."
+              placeholder="Combo mỹ phẩm..."
               {...form.register("product_name")}
             />
           }
         />
         <div className="space-y-2">
-          <Label>Trang thai don</Label>
+          <Label>Trạng thái đơn</Label>
           <Controller
             control={form.control}
             name="status"
@@ -224,13 +224,13 @@ export function OrderForm({
       <div className="grid gap-5 md:grid-cols-[140px_180px_minmax(0,1fr)]">
         <Field
           name="quantity"
-          label="So luong"
+          label="Số lượng"
           error={form.formState.errors.quantity?.message}
           input={<Input id="quantity" type="number" min={1} {...form.register("quantity")} />}
         />
         <Field
           name="unit_price"
-          label="Gia ban"
+          label="Giá bán"
           error={form.formState.errors.unit_price?.message}
           input={
             <Input
@@ -243,7 +243,7 @@ export function OrderForm({
           }
         />
         <div className="rounded-[28px] border border-border/70 bg-accent/60 px-5 py-4">
-          <p className="text-sm font-medium text-muted-foreground">Tong tien tu dong</p>
+          <p className="text-sm font-medium text-muted-foreground">Tổng tiền tự động</p>
           <p className="mt-2 text-2xl font-semibold text-foreground">
             {formatCurrency(totalPreview)}
           </p>
@@ -252,19 +252,19 @@ export function OrderForm({
 
       <Field
         name="note"
-        label="Ghi chu"
+        label="Ghi chú"
         error={form.formState.errors.note?.message}
         input={
           <Textarea
             id="note"
-            placeholder="Ghi chu them ve don hang..."
+            placeholder="Ghi chú thêm về đơn hàng..."
             {...form.register("note")}
           />
         }
       />
 
       <Button type="submit" disabled={isPending}>
-        {isPending ? "Dang luu..." : mode === "create" ? "Tao don hang" : "Cap nhat don"}
+        {isPending ? "Đang lưu..." : mode === "create" ? "Tạo đơn hàng" : "Cập nhật đơn"}
       </Button>
     </form>
   );

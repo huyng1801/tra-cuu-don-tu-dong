@@ -26,14 +26,14 @@ export default async function FacebookEventsPage({
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Facebook Events"
-        description="Luu raw payload tu webhook Meta va trich xuat nhanh ten, so dien thoai, ma tracking neu co."
+        title="Sự kiện Facebook"
+        description="Lưu payload gốc từ webhook Meta và trích xuất nhanh tên, số điện thoại, mã tracking nếu có."
       />
 
       {result.items.length === 0 ? (
         <EmptyState
-          title="Chua co su kien nao"
-          description="Sau khi xac minh webhook voi Meta, su kien inbox/comment/lead se duoc luu o day."
+          title="Chưa có sự kiện nào"
+          description="Sau khi xác minh webhook với Meta, sự kiện inbox/comment/lead sẽ được lưu ở đây."
         />
       ) : (
         <div className="grid gap-5 xl:grid-cols-2">
@@ -49,20 +49,20 @@ export default async function FacebookEventsPage({
               <CardContent className="space-y-4">
                 <div className="flex flex-wrap gap-2">
                   <Badge variant={event.extracted.customerName ? "success" : "muted"}>
-                    Ten: {event.extracted.customerName ?? "Khong co"}
+                    Tên: {event.extracted.customerName ?? "Không có"}
                   </Badge>
                   <Badge variant={event.extracted.phone ? "success" : "muted"}>
-                    SDT: {event.extracted.phone ?? "Khong co"}
+                    SĐT: {event.extracted.phone ?? "Không có"}
                   </Badge>
                   <Badge variant={event.extracted.trackingCode ? "warning" : "muted"}>
-                    Tracking: {event.extracted.trackingCode ?? "Khong co"}
+                    Mã tracking: {event.extracted.trackingCode ?? "Không có"}
                   </Badge>
                 </div>
 
                 {event.extracted.textSnippets.length > 0 ? (
                   <div className="rounded-3xl border border-border/70 bg-accent/50 p-4">
                     <p className="mb-2 text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                      Text snippets
+                      Đoạn trích nội dung
                     </p>
                     <div className="space-y-2 text-sm text-foreground">
                       {event.extracted.textSnippets.map((snippet) => (
@@ -76,20 +76,20 @@ export default async function FacebookEventsPage({
                   {event.extracted.customerName || event.extracted.phone ? (
                     <Button asChild size="sm">
                       <Link href={`/customers/new?facebookEventId=${event.id}`}>
-                        Tao khach hang
+                        Tạo khách hàng
                       </Link>
                     </Button>
                   ) : null}
                   {event.extracted.customerName || event.extracted.phone ? (
                     <Button asChild size="sm" variant="secondary">
-                      <Link href={`/orders/new?facebookEventId=${event.id}`}>Tao don nhap</Link>
+                      <Link href={`/orders/new?facebookEventId=${event.id}`}>Tạo đơn nháp</Link>
                     </Button>
                   ) : null}
                 </div>
 
                 <details className="rounded-3xl border border-border/70 bg-card/80 p-4">
                   <summary className="cursor-pointer text-sm font-semibold text-foreground">
-                    Xem raw payload
+                    Xem payload gốc
                   </summary>
                   <pre className="mt-4 overflow-x-auto whitespace-pre-wrap text-xs leading-6 text-muted-foreground">
                     {JSON.stringify(event.payload_json, null, 2)}
@@ -103,4 +103,3 @@ export default async function FacebookEventsPage({
     </div>
   );
 }
-

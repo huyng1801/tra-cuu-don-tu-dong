@@ -11,7 +11,7 @@ export async function signInAction(input: LoginInput) {
   if (!parsed.success) {
     return {
       success: false,
-      message: parsed.error.issues[0]?.message ?? "Du lieu dang nhap khong hop le.",
+      message: parsed.error.issues[0]?.message ?? "Dữ liệu đăng nhập không hợp lệ.",
     };
   }
 
@@ -29,7 +29,7 @@ export async function signInAction(input: LoginInput) {
 
   return {
     success: true,
-    message: "Dang nhap thanh cong.",
+    message: "Đăng nhập thành công.",
   };
 }
 
@@ -45,7 +45,7 @@ export async function updateProfileAction(input: ProfileInput) {
   if (!parsed.success) {
     return {
       success: false,
-      message: parsed.error.issues[0]?.message ?? "Du lieu khong hop le.",
+      message: parsed.error.issues[0]?.message ?? "Dữ liệu không hợp lệ.",
     };
   }
 
@@ -57,7 +57,7 @@ export async function updateProfileAction(input: ProfileInput) {
   if (!user) {
     return {
       success: false,
-      message: "Phien dang nhap da het han.",
+      message: "Phiên đăng nhập đã hết hạn.",
     };
   }
 
@@ -79,7 +79,6 @@ export async function updateProfileAction(input: ProfileInput) {
 
   return {
     success: true,
-    message: "Da cap nhat ten hien thi.",
+    message: "Đã cập nhật tên hiển thị.",
   };
 }
-

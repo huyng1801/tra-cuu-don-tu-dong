@@ -14,7 +14,7 @@ async function getCurrentOwnerUserId() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    throw new Error("Phien dang nhap da het han.");
+    throw new Error("Phiên đăng nhập đã hết hạn.");
   }
 
   return { supabase, ownerUserId: user.id };
@@ -26,7 +26,7 @@ export async function createShipmentAction(input: ShipmentFormValues) {
   if (!parsed.success) {
     return {
       success: false,
-      message: parsed.error.issues[0]?.message ?? "Du lieu khong hop le.",
+      message: parsed.error.issues[0]?.message ?? "Dữ liệu không hợp lệ.",
       shipmentId: undefined,
     };
   }
@@ -39,7 +39,7 @@ export async function createShipmentAction(input: ShipmentFormValues) {
 
     return {
       success: true,
-      message: "Da tao van don.",
+      message: "Đã tạo vận đơn.",
       shipmentId: shipment.id,
     };
   } catch (error) {
@@ -57,7 +57,7 @@ export async function updateShipmentAction(id: string, input: ShipmentFormValues
   if (!parsed.success) {
     return {
       success: false,
-      message: parsed.error.issues[0]?.message ?? "Du lieu khong hop le.",
+      message: parsed.error.issues[0]?.message ?? "Dữ liệu không hợp lệ.",
     };
   }
 
@@ -70,7 +70,7 @@ export async function updateShipmentAction(id: string, input: ShipmentFormValues
 
     return {
       success: true,
-      message: "Da cap nhat van don.",
+      message: "Đã cập nhật vận đơn.",
     };
   } catch (error) {
     return {

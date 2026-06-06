@@ -28,13 +28,13 @@ export function DeleteOrderButton({ orderId }: { orderId: string }) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Xoa don hang?</AlertDialogTitle>
+          <AlertDialogTitle>Xóa đơn hàng?</AlertDialogTitle>
           <AlertDialogDescription>
-            Neu don nay da gan van don, ban ghi van don cung se bi xoa.
+            Nếu đơn này đã gắn vận đơn, bản ghi vận đơn cũng sẽ bị xóa.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div className="mt-6 flex justify-end gap-3">
-          <AlertDialogCancel>Huy</AlertDialogCancel>
+          <AlertDialogCancel>Hủy</AlertDialogCancel>
           <AlertDialogAction
             onClick={(event) => {
               event.preventDefault();
@@ -53,11 +53,10 @@ export function DeleteOrderButton({ orderId }: { orderId: string }) {
               });
             }}
           >
-            {isPending ? "Dang xoa..." : "Xoa don"}
+            {isPending ? "Đang xóa..." : "Xóa đơn"}
           </AlertDialogAction>
         </div>
       </AlertDialogContent>
     </AlertDialog>
   );
 }
-

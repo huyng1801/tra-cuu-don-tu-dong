@@ -32,15 +32,15 @@ describe("LoginForm", () => {
   it("submits credentials and redirects on success", async () => {
     mocks.signInAction.mockResolvedValue({
       success: true,
-      message: "Dang nhap thanh cong.",
+      message: "Đăng nhập thành công.",
     });
 
     render(createElement(LoginForm));
     const user = userEvent.setup();
 
     await user.type(screen.getByLabelText("Email"), "owner@example.com");
-    await user.type(screen.getByLabelText("Mat khau"), "123456");
-    await user.click(screen.getByRole("button", { name: "Dang nhap" }));
+    await user.type(screen.getByLabelText("Mật khẩu"), "123456");
+    await user.click(screen.getByRole("button", { name: "Đăng nhập" }));
 
     await waitFor(() => {
       expect(mocks.signInAction).toHaveBeenCalled();

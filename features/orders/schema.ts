@@ -10,9 +10,9 @@ export const orderFormSchema = z
     customer_name: z.string().trim().optional().default(""),
     customer_phone: z.string().trim().optional().default(""),
     customer_address: optionalText(255),
-    product_name: z.string().trim().min(2, "Vui long nhap ten san pham.").max(160),
-    quantity: z.coerce.number().int().min(1, "So luong toi thieu la 1."),
-    unit_price: z.coerce.number().min(0, "Gia ban khong duoc am."),
+    product_name: z.string().trim().min(2, "Vui lòng nhập tên sản phẩm.").max(160),
+    quantity: z.coerce.number().int().min(1, "Số lượng tối thiểu là 1."),
+    unit_price: z.coerce.number().min(0, "Giá bán không được âm."),
     status: z.enum(ORDER_STATUS_VALUES),
     note: optionalText(1000),
   })
@@ -21,7 +21,7 @@ export const orderFormSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["customer_id"],
-        message: "Vui long chon khach hang.",
+        message: "Vui lòng chọn khách hàng.",
       });
     }
 
@@ -30,7 +30,7 @@ export const orderFormSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["customer_name"],
-          message: "Nhap ten khach hang moi.",
+          message: "Nhập tên khách hàng mới.",
         });
       }
 
@@ -38,7 +38,7 @@ export const orderFormSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["customer_phone"],
-          message: "Nhap so dien thoai hop le.",
+          message: "Nhập số điện thoại hợp lệ.",
         });
       }
     }

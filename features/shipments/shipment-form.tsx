@@ -90,14 +90,14 @@ export function ShipmentForm({
   return (
     <form className="space-y-5" onSubmit={onSubmit}>
       <div className="space-y-2">
-        <Label>Don hang</Label>
+        <Label>Đơn hàng</Label>
         <Controller
           control={form.control}
           name="order_id"
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger>
-                <SelectValue placeholder="Chon don hang" />
+                <SelectValue placeholder="Chọn đơn hàng" />
               </SelectTrigger>
               <SelectContent>
                 {orders.map((order) => (
@@ -116,7 +116,7 @@ export function ShipmentForm({
 
       <div className="grid gap-5 md:grid-cols-2">
         <div className="space-y-2">
-          <Label>Don vi van chuyen</Label>
+          <Label>Đơn vị vận chuyển</Label>
           <Controller
             control={form.control}
             name="carrier"
@@ -137,7 +137,7 @@ export function ShipmentForm({
           />
         </div>
         <div className="space-y-2">
-          <Label>Trang thai giao hang</Label>
+          <Label>Trạng thái giao hàng</Label>
           <Controller
             control={form.control}
             name="shipping_status"
@@ -160,7 +160,7 @@ export function ShipmentForm({
       </div>
 
       <div className="space-y-2">
-        <Label>Ma van don</Label>
+        <Label>Mã vận đơn</Label>
         <Input placeholder="VD: SPXVN..." {...form.register("tracking_code")} />
         {form.formState.errors.tracking_code ? (
           <p className="text-sm text-destructive">
@@ -170,7 +170,7 @@ export function ShipmentForm({
       </div>
 
       <Button type="submit" disabled={isPending}>
-        {isPending ? "Dang luu..." : mode === "create" ? "Tao van don" : "Cap nhat van don"}
+        {isPending ? "Đang lưu..." : mode === "create" ? "Tạo vận đơn" : "Cập nhật vận đơn"}
       </Button>
     </form>
   );

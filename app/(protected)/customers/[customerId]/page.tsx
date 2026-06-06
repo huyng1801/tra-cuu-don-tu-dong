@@ -32,14 +32,14 @@ export default async function CustomerDetailPage({
     <div className="space-y-6">
       <PageHeader
         title={customer.name}
-        description={`Tao ngay ${formatDate(customer.created_at)} - theo doi thong tin va lich su mua hang cua khach nay.`}
+        description={`Tạo ngày ${formatDate(customer.created_at)} - theo dõi thông tin và lịch sử mua hàng của khách này.`}
       />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
         <Card>
           <CardHeader>
-            <CardTitle>Cap nhat thong tin</CardTitle>
-            <CardDescription>Chinh sua dia chi, ghi chu va cac thong tin lien he.</CardDescription>
+            <CardTitle>Cập nhật thông tin</CardTitle>
+            <CardDescription>Chỉnh sửa địa chỉ, ghi chú và các thông tin liên hệ.</CardDescription>
           </CardHeader>
           <CardContent>
             <CustomerForm mode="edit" customerId={customer.id} defaultValues={customer} />
@@ -48,15 +48,15 @@ export default async function CustomerDetailPage({
 
         <Card>
           <CardHeader>
-            <CardTitle>Thao tac nhanh</CardTitle>
-            <CardDescription>Chuyen sang luong tao don hoac xoa khach hang.</CardDescription>
+            <CardTitle>Thao tác nhanh</CardTitle>
+            <CardDescription>Chuyển sang luồng tạo đơn hoặc xóa khách hàng.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <Link
               href={`/orders/new?customerId=${customer.id}`}
               className="inline-flex h-11 w-full items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
             >
-              Tao don cho khach nay
+              Tạo đơn cho khách này
             </Link>
             <DeleteCustomerButton customerId={customer.id} />
           </CardContent>
@@ -65,11 +65,11 @@ export default async function CustomerDetailPage({
 
       {orders.length === 0 ? (
         <EmptyState
-          title="Chua co don hang"
-          description="Khach hang nay chua phat sinh don hang nao. Ban co the tao don moi ngay tu trang nay."
+          title="Chưa có đơn hàng"
+          description="Khách hàng này chưa phát sinh đơn hàng nào. Bạn có thể tạo đơn mới ngay từ trang này."
         />
       ) : (
-        <DataTable headers={["Ma don", "San pham", "Trang thai", "Tong tien", ""]}>
+        <DataTable headers={["Mã đơn", "Sản phẩm", "Trạng thái", "Tổng tiền", ""]}>
           {orders.map((order) => (
             <DataRow key={order.id}>
               <DataCell>{order.order_code}</DataCell>
@@ -80,7 +80,7 @@ export default async function CustomerDetailPage({
               <DataCell>{formatCurrency(order.total_price)}</DataCell>
               <DataCell className="text-right">
                 <Link href={`/orders/${order.id}`} className="text-primary hover:underline">
-                  Xem don
+                  Xem đơn
                 </Link>
               </DataCell>
             </DataRow>

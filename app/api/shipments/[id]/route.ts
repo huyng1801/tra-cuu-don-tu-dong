@@ -17,7 +17,7 @@ export async function PUT(
   const parsed = shipmentFormSchema.safeParse(body);
 
   if (!parsed.success) {
-    return jsonError(parsed.error.issues[0]?.message ?? "Du lieu khong hop le.", 400);
+    return jsonError(parsed.error.issues[0]?.message ?? "Dữ liệu không hợp lệ.", 400);
   }
 
   try {
@@ -25,7 +25,6 @@ export async function PUT(
     const data = await updateShipment(context.supabase, context.ownerUserId, id, parsed.data);
     return jsonSuccess(data);
   } catch (error) {
-    return jsonError(error instanceof Error ? error.message : "Cap nhat van don that bai.", 500);
+    return jsonError(error instanceof Error ? error.message : "Cập nhật vận đơn thất bại.", 500);
   }
 }
-

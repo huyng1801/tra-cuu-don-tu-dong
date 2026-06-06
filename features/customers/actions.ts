@@ -18,7 +18,7 @@ async function getCurrentOwnerUserId() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    throw new Error("Phien dang nhap da het han.");
+    throw new Error("Phiên đăng nhập đã hết hạn.");
   }
 
   return { supabase, ownerUserId: user.id };
@@ -30,7 +30,7 @@ export async function createCustomerAction(input: CustomerFormValues) {
   if (!parsed.success) {
     return {
       success: false,
-      message: parsed.error.issues[0]?.message ?? "Du lieu khong hop le.",
+      message: parsed.error.issues[0]?.message ?? "Dữ liệu không hợp lệ.",
       customerId: undefined,
     };
   }
@@ -43,7 +43,7 @@ export async function createCustomerAction(input: CustomerFormValues) {
 
     return {
       success: true,
-      message: "Da tao khach hang moi.",
+      message: "Đã tạo khách hàng mới.",
       customerId: customer.id,
     };
   } catch (error) {
@@ -61,7 +61,7 @@ export async function updateCustomerAction(id: string, input: CustomerFormValues
   if (!parsed.success) {
     return {
       success: false,
-      message: parsed.error.issues[0]?.message ?? "Du lieu khong hop le.",
+      message: parsed.error.issues[0]?.message ?? "Dữ liệu không hợp lệ.",
     };
   }
 
@@ -73,7 +73,7 @@ export async function updateCustomerAction(id: string, input: CustomerFormValues
 
     return {
       success: true,
-      message: "Da cap nhat khach hang.",
+      message: "Đã cập nhật khách hàng.",
     };
   } catch (error) {
     return {
@@ -91,7 +91,7 @@ export async function deleteCustomerAction(id: string) {
 
     return {
       success: true,
-      message: "Da xoa khach hang.",
+      message: "Đã xóa khách hàng.",
     };
   } catch (error) {
     return {

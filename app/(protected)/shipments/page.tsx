@@ -27,10 +27,10 @@ export default async function ShipmentsPage({
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Van don"
-        description="Gan ma van don cho tung don va cap nhat trang thai giao hang thu cong."
+        title="Vận đơn"
+        description="Gắn mã vận đơn cho từng đơn và cập nhật trạng thái giao hàng thủ công."
         actionHref="/shipments/new"
-        actionLabel="Them van don"
+        actionLabel="Thêm vận đơn"
       />
 
       <form className="grid gap-3 xl:grid-cols-[minmax(0,340px)_220px_auto]">
@@ -40,7 +40,7 @@ export default async function ShipmentsPage({
             type="search"
             name="q"
             defaultValue={result.q}
-            placeholder="Tim theo ma van don"
+            placeholder="Tìm theo mã vận đơn"
             className="h-11 w-full rounded-2xl border border-border/80 bg-card pl-11 pr-4 text-sm outline-none focus:ring-2 focus:ring-ring/40"
           />
         </div>
@@ -49,7 +49,7 @@ export default async function ShipmentsPage({
           defaultValue={result.carrier ?? ""}
           className="h-11 rounded-2xl border border-border/80 bg-card px-4 text-sm outline-none focus:ring-2 focus:ring-ring/40"
         >
-          <option value="">Tat ca don vi</option>
+          <option value="">Tất cả đơn vị</option>
           {CARRIER_VALUES.map((carrier) => (
             <option key={carrier} value={carrier}>
               {CARRIER_LABELS[carrier]}
@@ -57,17 +57,17 @@ export default async function ShipmentsPage({
           ))}
         </select>
         <Button type="submit" variant="outline">
-          Loc van don
+          Lọc vận đơn
         </Button>
       </form>
 
       {result.items.length === 0 ? (
         <EmptyState
-          title="Chua co van don"
-          description="Khi co don can giao, tao van don thu cong va gan ma tracking tai day."
+          title="Chưa có vận đơn"
+          description="Khi có đơn cần giao, tạo vận đơn thủ công và gắn mã tracking tại đây."
         />
       ) : (
-        <DataTable headers={["Don vi", "Ma van don", "Don hang", "Trang thai", "Cap nhat", ""]}>
+        <DataTable headers={["Đơn vị", "Mã vận đơn", "Đơn hàng", "Trạng thái", "Cập nhật", ""]}>
           {result.items.map((shipment) => (
             <DataRow key={shipment.id}>
               <DataCell>
@@ -83,10 +83,10 @@ export default async function ShipmentsPage({
                       rel="noreferrer"
                       className="text-primary hover:underline"
                     >
-                      Mo link tra cuu
+                      Mở link tra cứu
                     </a>
                   ) : (
-                    <span className="text-xs text-muted-foreground">Khong co link san</span>
+                    <span className="text-xs text-muted-foreground">Không có link sẵn</span>
                   )}
                 </div>
               </DataCell>
@@ -95,12 +95,12 @@ export default async function ShipmentsPage({
                   <div className="space-y-1">
                     <p className="font-semibold">{shipment.order.order_code}</p>
                     <p className="text-xs text-muted-foreground">
-                      {shipment.order.customer_name ?? "Khach chua ro"} -{" "}
+                      {shipment.order.customer_name ?? "Khách chưa rõ"} -{" "}
                       {shipment.order.product_name}
                     </p>
                   </div>
                 ) : (
-                  <span className="text-muted-foreground">Khong tim thay don</span>
+                  <span className="text-muted-foreground">Không tìm thấy đơn</span>
                 )}
               </DataCell>
               <DataCell>
@@ -109,7 +109,7 @@ export default async function ShipmentsPage({
               <DataCell>{formatDateTime(shipment.created_at)}</DataCell>
               <DataCell className="text-right">
                 <Button asChild variant="outline" size="sm">
-                  <Link href={`/shipments/${shipment.id}`}>Chi tiet</Link>
+                  <Link href={`/shipments/${shipment.id}`}>Chi tiết</Link>
                 </Button>
               </DataCell>
             </DataRow>
@@ -119,4 +119,3 @@ export default async function ShipmentsPage({
     </div>
   );
 }
-

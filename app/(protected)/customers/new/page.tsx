@@ -26,14 +26,14 @@ export default async function NewCustomerPage({
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Them khach hang"
-        description="Luu thong tin khach hang moi de theo doi lich su tuong tac va don mua."
+        title="Thêm khách hàng"
+        description="Lưu thông tin khách hàng mới để theo dõi lịch sử tương tác và đơn mua."
       />
       <Card>
         <CardHeader>
-          <CardTitle>Thong tin khach hang</CardTitle>
+          <CardTitle>Thông tin khách hàng</CardTitle>
           <CardDescription>
-            Co the dien tay hoac khoi tao nhanh tu du lieu trich xuat tu Facebook event.
+            Có thể điền tay hoặc khởi tạo nhanh từ dữ liệu trích xuất từ Facebook event.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -43,4 +43,3 @@ export default async function NewCustomerPage({
     </div>
   );
 }
-

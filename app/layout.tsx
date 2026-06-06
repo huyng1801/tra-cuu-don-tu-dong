@@ -15,8 +15,8 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CRM Ban Hang Ca Nhan",
-  description: "CRM don gian de quan ly khach hang, don hang va van don.",
+  title: "CRM Bán Hàng Cá Nhân",
+  description: "CRM đơn giản để quản lý khách hàng, đơn hàng và vận đơn.",
 };
 
 export const viewport: Viewport = {

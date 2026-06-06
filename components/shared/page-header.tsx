@@ -20,7 +20,7 @@ export function PageHeader({
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div className="space-y-2">
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          Personal CRM
+          CRM cá nhân
         </p>
         <h1 className="text-3xl font-semibold tracking-tight text-foreground">{title}</h1>
         <p className="max-w-2xl text-sm leading-6 text-muted-foreground">{description}</p>
@@ -36,4 +36,3 @@ export function PageHeader({
     </div>
   );
 }
-

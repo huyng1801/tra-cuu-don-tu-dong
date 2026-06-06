@@ -5,11 +5,10 @@ export default function GlobalLoading() {
         <div className="flex items-center gap-3">
           <div className="size-3 animate-pulse rounded-full bg-secondary" />
           <p className="text-sm font-medium text-muted-foreground">
-            Dang tai giao dien CRM...
+            Đang tải giao diện CRM...
           </p>
         </div>
       </div>
     </div>
   );
 }
-

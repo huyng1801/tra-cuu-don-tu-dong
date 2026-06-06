@@ -28,13 +28,13 @@ export function DeleteCustomerButton({ customerId }: { customerId: string }) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Xoa khach hang?</AlertDialogTitle>
+          <AlertDialogTitle>Xóa khách hàng?</AlertDialogTitle>
           <AlertDialogDescription>
-            Thao tac nay chi thanh cong khi khach hang chua co don hang nao.
+            Thao tác này chỉ thành công khi khách hàng chưa có đơn hàng nào.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div className="mt-6 flex justify-end gap-3">
-          <AlertDialogCancel>Huy</AlertDialogCancel>
+          <AlertDialogCancel>Hủy</AlertDialogCancel>
           <AlertDialogAction
             onClick={(event) => {
               event.preventDefault();
@@ -53,11 +53,10 @@ export function DeleteCustomerButton({ customerId }: { customerId: string }) {
               });
             }}
           >
-            {isPending ? "Dang xoa..." : "Xoa"}
+            {isPending ? "Đang xóa..." : "Xóa"}
           </AlertDialogAction>
         </div>
       </AlertDialogContent>
     </AlertDialog>
   );
 }
-

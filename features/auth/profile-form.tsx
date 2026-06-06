@@ -36,8 +36,8 @@ export function ProfileForm({ defaultValue }: { defaultValue: string }) {
   return (
     <form className="space-y-4" onSubmit={onSubmit}>
       <div className="space-y-2">
-        <Label htmlFor="full_name">Ten hien thi</Label>
-        <Input id="full_name" placeholder="Chu shop" {...form.register("full_name")} />
+        <Label htmlFor="full_name">Tên hiển thị</Label>
+        <Input id="full_name" placeholder="Chủ shop" {...form.register("full_name")} />
         {form.formState.errors.full_name ? (
           <p className="text-sm text-destructive">
             {form.formState.errors.full_name.message}
@@ -45,9 +45,8 @@ export function ProfileForm({ defaultValue }: { defaultValue: string }) {
         ) : null}
       </div>
       <Button type="submit" disabled={isPending}>
-        {isPending ? "Dang luu..." : "Luu thay doi"}
+        {isPending ? "Đang lưu..." : "Lưu thay đổi"}
       </Button>
     </form>
   );
 }
-

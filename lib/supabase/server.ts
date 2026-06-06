@@ -8,7 +8,7 @@ export async function createSupabaseServerClient() {
   const env = getSupabaseClientEnv();
 
   if (!env) {
-    throw new Error("Chua cau hinh Supabase.");
+    throw new Error("Chưa cấu hình Supabase.");
   }
 
   const cookieStore = await cookies();
@@ -34,4 +34,3 @@ export async function createSupabaseServerClient() {
     },
   );
 }
-

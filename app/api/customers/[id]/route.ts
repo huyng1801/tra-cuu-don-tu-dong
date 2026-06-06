@@ -17,7 +17,7 @@ export async function PUT(
   const parsed = customerFormSchema.safeParse(body);
 
   if (!parsed.success) {
-    return jsonError(parsed.error.issues[0]?.message ?? "Du lieu khong hop le.", 400);
+    return jsonError(parsed.error.issues[0]?.message ?? "Dữ liệu không hợp lệ.", 400);
   }
 
   try {
@@ -26,7 +26,7 @@ export async function PUT(
     return jsonSuccess(data);
   } catch (error) {
     return jsonError(
-      error instanceof Error ? error.message : "Cap nhat khach hang that bai.",
+      error instanceof Error ? error.message : "Cập nhật khách hàng thất bại.",
       500,
     );
   }
@@ -47,7 +47,6 @@ export async function DELETE(
     await deleteCustomer(context.supabase, context.ownerUserId, id);
     return jsonSuccess({ id });
   } catch (error) {
-    return jsonError(error instanceof Error ? error.message : "Xoa khach hang that bai.", 500);
+    return jsonError(error instanceof Error ? error.message : "Xóa khách hàng thất bại.", 500);
   }
 }
-

@@ -34,14 +34,14 @@ export default async function ShipmentDetailPage({
     <div className="space-y-6">
       <PageHeader
         title={shipment.tracking_code}
-        description="Cap nhat ma tracking, don vi van chuyen va trang thai giao hang."
+        description="Cập nhật mã tracking, đơn vị vận chuyển và trạng thái giao hàng."
       />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
         <Card>
           <CardHeader>
-            <CardTitle>Chinh sua van don</CardTitle>
-            <CardDescription>Dong bo thu cong theo thong tin ban thu thap duoc.</CardDescription>
+            <CardTitle>Chỉnh sửa vận đơn</CardTitle>
+            <CardDescription>Đồng bộ thủ công theo thông tin bạn thu thập được.</CardDescription>
           </CardHeader>
           <CardContent>
             <ShipmentForm
@@ -60,19 +60,19 @@ export default async function ShipmentDetailPage({
 
         <Card>
           <CardHeader>
-            <CardTitle>Tom tat van don</CardTitle>
+            <CardTitle>Tóm tắt vận đơn</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-sm">
             <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Don vi</span>
+              <span className="text-muted-foreground">Đơn vị</span>
               <CarrierBadge carrier={shipment.carrier as never} />
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Trang thai</span>
+              <span className="text-muted-foreground">Trạng thái</span>
               <ShippingStatusBadge status={shipment.shipping_status as never} />
             </div>
             <div className="space-y-2">
-              <p className="text-muted-foreground">Link tra cuu</p>
+              <p className="text-muted-foreground">Link tra cứu</p>
               {shipment.tracking_url ? (
                 <a
                   href={shipment.tracking_url}
@@ -83,7 +83,7 @@ export default async function ShipmentDetailPage({
                   {shipment.tracking_url}
                 </a>
               ) : (
-                <p>Chua co link san cho carrier nay.</p>
+                <p>Chưa có link sẵn cho carrier này.</p>
               )}
             </div>
           </CardContent>

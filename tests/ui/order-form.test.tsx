@@ -44,15 +44,15 @@ describe("OrderForm", () => {
     );
 
     const user = userEvent.setup();
-    await user.type(screen.getByLabelText("Ten khach moi"), "Pham D");
-    await user.type(screen.getByLabelText("So dien thoai"), "0902222222");
-    await user.type(screen.getByLabelText("Ten san pham"), "San pham test");
+    await user.type(screen.getByLabelText("Tên khách mới"), "Pham D");
+    await user.type(screen.getByLabelText("Số điện thoại"), "0902222222");
+    await user.type(screen.getByLabelText("Tên sản phẩm"), "San pham test");
 
-    const quantityInput = screen.getByLabelText("So luong");
+    const quantityInput = screen.getByLabelText("Số lượng");
     await user.clear(quantityInput);
     await user.type(quantityInput, "3");
 
-    const priceInput = screen.getByLabelText("Gia ban");
+    const priceInput = screen.getByLabelText("Giá bán");
     await user.clear(priceInput);
     await user.type(priceInput, "50000");
 

@@ -30,21 +30,21 @@ export type ShippingStatus = (typeof SHIPPING_STATUS_VALUES)[number];
 export type CarrierCode = (typeof CARRIER_VALUES)[number];
 
 export const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
-  new: "Moi",
-  confirmed: "Da xac nhan",
-  preparing: "Dang chuan bi",
-  shipping: "Dang giao",
-  completed: "Hoan thanh",
-  cancelled: "Huy",
+  new: "Mới",
+  confirmed: "Đã xác nhận",
+  preparing: "Đang chuẩn bị",
+  shipping: "Đang giao",
+  completed: "Hoàn thành",
+  cancelled: "Hủy",
 };
 
 export const SHIPPING_STATUS_LABELS: Record<ShippingStatus, string> = {
-  pending_pickup: "Cho lay hang",
-  picking_up: "Dang lay hang",
-  in_transit: "Dang van chuyen",
-  delivered: "Giao thanh cong",
-  returned: "Hoan hang",
-  cancelled: "Huy van chuyen",
+  pending_pickup: "Chờ lấy hàng",
+  picking_up: "Đang lấy hàng",
+  in_transit: "Đang vận chuyển",
+  delivered: "Giao thành công",
+  returned: "Hoàn hàng",
+  cancelled: "Hủy vận chuyển",
 };
 
 export const CARRIER_LABELS: Record<CarrierCode, string> = {
@@ -53,16 +53,16 @@ export const CARRIER_LABELS: Record<CarrierCode, string> = {
   viettel_post: "Viettel Post",
   jt_express: "J&T Express",
   shopee_express: "Shopee Express",
-  other: "Khac",
+  other: "Khác",
 };
 
 export const SIDEBAR_ITEMS = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/customers", label: "Khach hang" },
-  { href: "/orders", label: "Don hang" },
-  { href: "/shipments", label: "Van don" },
-  { href: "/facebook-events", label: "Facebook Events" },
-  { href: "/settings", label: "Cai dat" },
+  { href: "/dashboard", label: "Tổng quan" },
+  { href: "/customers", label: "Khách hàng" },
+  { href: "/orders", label: "Đơn hàng" },
+  { href: "/shipments", label: "Vận đơn" },
+  { href: "/facebook-events", label: "Sự kiện Facebook" },
+  { href: "/settings", label: "Cài đặt" },
 ] as const;
 
 export const PAGE_SIZE = 10;

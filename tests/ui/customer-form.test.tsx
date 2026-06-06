@@ -34,16 +34,16 @@ describe("CustomerForm", () => {
   it("creates customer and redirects to detail page", async () => {
     mocks.createCustomerAction.mockResolvedValue({
       success: true,
-      message: "Da tao khach hang moi.",
+      message: "Đã tạo khách hàng mới.",
       customerId: "customer-1",
     });
 
     render(createElement(CustomerForm, { mode: "create" }));
     const user = userEvent.setup();
 
-    await user.type(screen.getByLabelText("Ho ten"), "Tran Thi C");
-    await user.type(screen.getByLabelText("So dien thoai"), "0901000000");
-    await user.click(screen.getByRole("button", { name: "Tao khach hang" }));
+    await user.type(screen.getByLabelText("Họ tên"), "Tran Thi C");
+    await user.type(screen.getByLabelText("Số điện thoại"), "0901000000");
+    await user.click(screen.getByRole("button", { name: "Tạo khách hàng" }));
 
     await waitFor(() => {
       expect(mocks.createCustomerAction).toHaveBeenCalled();

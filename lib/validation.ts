@@ -15,7 +15,7 @@ export function optionalUrl() {
   return z
     .string()
     .trim()
-    .url("URL khong hop le.")
+    .url("URL không hợp lệ.")
     .or(z.literal(""))
     .transform((value) => value || null)
     .nullable()
@@ -36,4 +36,3 @@ export function optionalEnum<T extends readonly [string, ...string[]]>(values: T
     .optional()
     .transform((value) => (value ? value : undefined));
 }
-

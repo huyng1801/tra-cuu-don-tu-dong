@@ -83,13 +83,13 @@ export function CustomerForm({
       <div className="grid gap-5 md:grid-cols-2">
         <Field
           name="name"
-          label="Ho ten"
+          label="Họ tên"
           error={form.formState.errors.name?.message}
-          input={<Input id="name" placeholder="Nguyen Van A" {...form.register("name")} />}
+          input={<Input id="name" placeholder="Nguyễn Văn A" {...form.register("name")} />}
         />
         <Field
           name="phone"
-          label="So dien thoai"
+          label="Số điện thoại"
           error={form.formState.errors.phone?.message}
           input={<Input id="phone" placeholder="0901234567" {...form.register("phone")} />}
         />
@@ -117,13 +117,13 @@ export function CustomerForm({
       </div>
 
       <Field
-        name="address"
-        label="Dia chi giao hang"
+          name="address"
+        label="Địa chỉ giao hàng"
         error={form.formState.errors.address?.message}
         input={
           <Textarea
             id="address"
-            placeholder="So nha, phuong/xa, quan/huyen..."
+            placeholder="Số nhà, phường/xã, quận/huyện..."
             {...form.register("address")}
           />
         }
@@ -131,19 +131,19 @@ export function CustomerForm({
 
       <Field
         name="note"
-        label="Ghi chu"
+        label="Ghi chú"
         error={form.formState.errors.note?.message}
         input={
           <Textarea
             id="note"
-            placeholder="So thich, ghi chu chot don..."
+            placeholder="Sở thích, ghi chú chốt đơn..."
             {...form.register("note")}
           />
         }
       />
 
       <Button type="submit" disabled={isPending}>
-        {isPending ? "Dang luu..." : mode === "create" ? "Tao khach hang" : "Luu thay doi"}
+        {isPending ? "Đang lưu..." : mode === "create" ? "Tạo khách hàng" : "Lưu thay đổi"}
       </Button>
     </form>
   );

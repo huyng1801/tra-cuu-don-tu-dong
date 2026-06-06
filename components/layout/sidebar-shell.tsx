@@ -45,7 +45,7 @@ export function SidebarShell({ children, profile }: SidebarShellProps) {
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="left-0 top-0 h-screen w-[86vw] max-w-[320px] translate-x-0 translate-y-0 rounded-none rounded-r-[28px] border-l-0 p-0">
-                  <DialogTitle className="sr-only">Navigation</DialogTitle>
+                  <DialogTitle className="sr-only">Điều hướng</DialogTitle>
                   <SidebarContent
                     pathname={pathname}
                     profile={profile}
@@ -56,7 +56,7 @@ export function SidebarShell({ children, profile }: SidebarShellProps) {
               </Dialog>
               <div>
                 <p className="font-mono text-xs uppercase tracking-[0.24em] text-muted-foreground">
-                  Owner console
+                  Bảng điều khiển chủ shop
                 </p>
                 <h1 className="text-xl font-semibold tracking-tight text-foreground">
                   {currentTitle}
@@ -65,7 +65,7 @@ export function SidebarShell({ children, profile }: SidebarShellProps) {
             </div>
             <div className="hidden text-right sm:block">
               <p className="text-sm font-semibold text-foreground">
-                {profile.full_name || "Chu shop"}
+                {profile.full_name || "Chủ shop"}
               </p>
               <p className="text-xs text-muted-foreground">{profile.email}</p>
             </div>
@@ -101,9 +101,9 @@ function SidebarContent({
           </div>
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-sidebar-muted">
-              Personal CRM
+              CRM cá nhân
             </p>
-            <p className="text-lg font-semibold">Ban hang ca nhan</p>
+            <p className="text-lg font-semibold">Bán hàng cá nhân</p>
           </div>
         </div>
         {mobile ? (
@@ -140,12 +140,12 @@ function SidebarContent({
 
       <div className="mt-auto border-t border-sidebar-border px-4 py-6">
         <div className="rounded-[24px] border border-white/10 bg-white/6 p-4">
-          <p className="text-sm font-semibold text-white">{profile.full_name || "Chu shop"}</p>
+          <p className="text-sm font-semibold text-white">{profile.full_name || "Chủ shop"}</p>
           <p className="mt-1 text-xs text-sidebar-muted">{profile.email}</p>
           <form action={signOutAction} className="mt-4">
             <Button className="w-full" size="sm" variant="outline">
               <LogOut className="size-4" />
-              Dang xuat
+              Đăng xuất
             </Button>
           </form>
         </div>
@@ -153,4 +153,3 @@ function SidebarContent({
     </div>
   );
 }
-

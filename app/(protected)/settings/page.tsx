@@ -11,28 +11,28 @@ export default async function SettingsPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Cai dat"
-        description="Cap nhat ho so owner va kiem tra tinh trang cau hinh tich hop."
+        title="Cài đặt"
+        description="Cập nhật hồ sơ chủ shop và kiểm tra tình trạng cấu hình tích hợp."
       />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
         <Card>
           <CardHeader>
-            <CardTitle>Ho so owner</CardTitle>
+            <CardTitle>Hồ sơ chủ shop</CardTitle>
             <CardDescription>
-              V1 chi co mot tai khoan chu shop, dang nhap bang email/password Supabase Auth.
+              V1 chỉ có một tài khoản chủ shop, đăng nhập bằng email/password Supabase Auth.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ProfileForm defaultValue={profile.full_name ?? "Chu shop"} />
+            <ProfileForm defaultValue={profile.full_name ?? "Chủ shop"} />
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Tinh trang tich hop</CardTitle>
+            <CardTitle>Tình trạng tích hợp</CardTitle>
             <CardDescription>
-              Secret van duoc quan ly bang file env va dashboard, khong sua trong UI.
+              Secret vẫn được quản lý bằng file env và dashboard, không sửa trong UI.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 text-sm">
@@ -62,7 +62,7 @@ export default async function SettingsPage() {
               >
                 <span>{label}</span>
                 <span className={ready ? "font-semibold text-success" : "font-semibold text-warning"}>
-                  {ready ? "Da cau hinh" : "Thieu"}
+                  {ready ? "Đã cấu hình" : "Thiếu"}
                 </span>
               </div>
             ))}

@@ -28,14 +28,14 @@ export default async function NewShipmentPage({
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Them van don"
-        description="Moi don chi gan toi da mot van don trong v1."
+        title="Thêm vận đơn"
+        description="Mỗi đơn chỉ gắn tối đa một vận đơn trong v1."
       />
       <Card>
         <CardHeader>
-          <CardTitle>Thong tin van don</CardTitle>
+          <CardTitle>Thông tin vận đơn</CardTitle>
           <CardDescription>
-            Link tra cuu se duoc sinh tu dong theo don vi van chuyen.
+            Link tra cứu sẽ được sinh tự động theo đơn vị vận chuyển.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -53,4 +53,3 @@ export default async function NewShipmentPage({
     </div>
   );
 }
-

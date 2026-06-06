@@ -77,8 +77,8 @@ export async function getCustomerEventPrefill(
     phone: extracted.phone ?? "",
     note:
       extracted.textSnippets.length > 0
-        ? `Khoi tao tu Facebook event ${event.id.slice(0, 8)}\n${extracted.textSnippets.join("\n")}`
-        : `Khoi tao tu Facebook event ${event.id.slice(0, 8)}`,
+        ? `Khởi tạo từ Facebook event ${event.id.slice(0, 8)}\n${extracted.textSnippets.join("\n")}`
+        : `Khởi tạo từ Facebook event ${event.id.slice(0, 8)}`,
   };
 }
 
@@ -95,8 +95,8 @@ export async function getOrderEventPrefill(
     customer_phone: extracted.phone,
     note:
       extracted.textSnippets.length > 0
-        ? `Khoi tao tu Facebook event ${event.id.slice(0, 8)}\n${extracted.textSnippets.join("\n")}`
-        : `Khoi tao tu Facebook event ${event.id.slice(0, 8)}`,
+        ? `Khởi tạo từ Facebook event ${event.id.slice(0, 8)}\n${extracted.textSnippets.join("\n")}`
+        : `Khởi tạo từ Facebook event ${event.id.slice(0, 8)}`,
   };
 }
 
@@ -110,7 +110,7 @@ export async function getDefaultOwnerUserId(supabase: SupabaseClient<Database>) 
 
   if (error) {
     throw new Error(
-      "Khong tim thay owner trong public.users. Hay tao tai khoan owner truoc khi dang ky webhook.",
+      "Không tìm thấy chủ shop trong public.users. Hãy tạo tài khoản chủ shop trước khi đăng ký webhook.",
     );
   }
 
@@ -139,4 +139,3 @@ export async function createFacebookEventRecord(
 
   return data;
 }
-

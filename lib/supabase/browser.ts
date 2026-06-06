@@ -16,7 +16,7 @@ export function createSupabaseBrowserClient() {
   const env = getSupabaseClientEnv();
 
   if (!env) {
-    throw new Error("Chua cau hinh Supabase.");
+    throw new Error("Chưa cấu hình Supabase.");
   }
 
   browserClient = createBrowserClient<Database>(
@@ -26,4 +26,3 @@ export function createSupabaseBrowserClient() {
 
   return browserClient;
 }
-

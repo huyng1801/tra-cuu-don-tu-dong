@@ -19,33 +19,33 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Dashboard"
-        description="Theo doi tong quan khach hang, don hang va doanh thu tam tinh trong 7 ngay gan nhat."
+        title="Tổng quan"
+        description="Theo dõi tổng quan khách hàng, đơn hàng và doanh thu tạm tính trong 7 ngày gần nhất."
       />
 
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         <StatCard
-          label="Tong khach"
+          label="Tổng khách"
           value={metrics.totalCustomers.toString()}
-          hint="Tat ca khach da luu"
+          hint="Tất cả khách đã lưu"
           icon={<Users className="size-5" />}
         />
         <StatCard
-          label="Tong don"
+          label="Tổng đơn"
           value={metrics.totalOrders.toString()}
-          hint={`${metrics.newOrders} don moi`}
+          hint={`${metrics.newOrders} đơn mới`}
           icon={<Archive className="size-5" />}
         />
         <StatCard
-          label="Dang giao"
+          label="Đang giao"
           value={metrics.shippingOrders.toString()}
-          hint={`${metrics.completedOrders} don hoan thanh`}
+          hint={`${metrics.completedOrders} đơn hoàn thành`}
           icon={<Truck className="size-5" />}
         />
         <StatCard
           label="Doanh thu"
           value={formatCurrency(metrics.estimatedRevenue)}
-          hint={`${metrics.cancelledOrders} don huy`}
+          hint={`${metrics.cancelledOrders} đơn hủy`}
           icon={<CircleDollarSign className="size-5" />}
         />
       </div>
@@ -53,9 +53,9 @@ export default async function DashboardPage() {
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.65fr)]">
         <Card className="surface-grid overflow-hidden">
           <CardHeader>
-            <CardTitle>Nhip do don hang 7 ngay</CardTitle>
+            <CardTitle>Nhịp độ đơn hàng 7 ngày</CardTitle>
             <CardDescription>
-              Bieu do don gian theo ngay de nhin nhanh xu huong phat sinh don.
+              Biểu đồ đơn giản theo ngày để nhìn nhanh xu hướng phát sinh đơn.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -65,15 +65,15 @@ export default async function DashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Tom tat nhanh</CardTitle>
-            <CardDescription>Cac con so chot don can nhin trong ngay.</CardDescription>
+            <CardTitle>Tóm tắt nhanh</CardTitle>
+            <CardDescription>Các con số chốt đơn cần nhìn trong ngày.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {[
-              ["Don moi", metrics.newOrders],
-              ["Dang giao", metrics.shippingOrders],
-              ["Hoan thanh", metrics.completedOrders],
-              ["Bi huy", metrics.cancelledOrders],
+              ["Đơn mới", metrics.newOrders],
+              ["Đang giao", metrics.shippingOrders],
+              ["Hoàn thành", metrics.completedOrders],
+              ["Bị hủy", metrics.cancelledOrders],
             ].map(([label, value]) => (
               <div
                 key={label}
@@ -94,4 +94,3 @@ export default async function DashboardPage() {
     </div>
   );
 }
-

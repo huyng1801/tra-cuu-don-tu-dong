@@ -135,7 +135,7 @@ export async function deleteCustomer(
   }
 
   if ((count ?? 0) > 0) {
-    throw new Error("Khong the xoa khach hang da co don hang.");
+    throw new Error("Không thể xóa khách hàng đã có đơn hàng.");
   }
 
   const { error } = await supabase
@@ -148,4 +148,3 @@ export async function deleteCustomer(
     throw new Error(error.message);
   }
 }
-

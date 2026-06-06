@@ -4,13 +4,13 @@ import { CARRIER_VALUES, SHIPPING_STATUS_VALUES } from "@/lib/constants";
 import { optionalEnum, paginationQuerySchema } from "@/lib/validation";
 
 export const shipmentFormSchema = z.object({
-  order_id: z.string().trim().min(1, "Vui long chon don hang."),
+  order_id: z.string().trim().min(1, "Vui lòng chọn đơn hàng."),
   carrier: z.enum(CARRIER_VALUES),
   tracking_code: z
     .string()
     .trim()
-    .min(4, "Nhap ma van don hop le.")
-    .max(64, "Ma van don qua dai."),
+    .min(4, "Nhập mã vận đơn hợp lệ.")
+    .max(64, "Mã vận đơn quá dài."),
   shipping_status: z.enum(SHIPPING_STATUS_VALUES),
 });
 

@@ -26,10 +26,10 @@ export default async function CustomersPage({
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Khach hang"
-        description="Theo doi thong tin khach va lich su mua hang tu mot giao dien don gian."
+        title="Khách hàng"
+        description="Theo dõi thông tin khách và lịch sử mua hàng từ một giao diện đơn giản."
         actionHref="/customers/new"
-        actionLabel="Them khach hang"
+        actionLabel="Thêm khách hàng"
       />
 
       <form className="grid gap-3 md:max-w-md md:grid-cols-[1fr_auto]">
@@ -39,28 +39,28 @@ export default async function CustomersPage({
             type="search"
             name="q"
             defaultValue={result.q}
-            placeholder="Tim theo ten hoac so dien thoai"
+            placeholder="Tìm theo tên hoặc số điện thoại"
             className="h-11 w-full rounded-2xl border border-border/80 bg-card pl-11 pr-4 text-sm outline-none focus:ring-2 focus:ring-ring/40"
           />
         </div>
         <Button type="submit" variant="outline">
-          Tim kiem
+          Tìm kiếm
         </Button>
       </form>
 
       {result.items.length === 0 ? (
         <EmptyState
-          title="Chua co khach hang"
-          description="Bat dau bang viec tao khach hang moi, hoac dieu chinh bo loc tim kiem."
+          title="Chưa có khách hàng"
+          description="Bắt đầu bằng việc tạo khách hàng mới, hoặc điều chỉnh bộ lọc tìm kiếm."
         />
       ) : (
-        <DataTable headers={["Ten", "So dien thoai", "Facebook", "Ngay tao", ""]}>
+        <DataTable headers={["Tên", "Số điện thoại", "Facebook", "Ngày tạo", ""]}>
           {result.items.map((customer) => (
             <DataRow key={customer.id}>
               <DataCell>
                 <div className="space-y-1">
                   <p className="font-semibold">{customer.name}</p>
-                  <Badge variant="muted">ID rut gon: {customer.id.slice(0, 8)}</Badge>
+                  <Badge variant="muted">ID rút gọn: {customer.id.slice(0, 8)}</Badge>
                 </div>
               </DataCell>
               <DataCell>{customer.phone}</DataCell>
@@ -75,13 +75,13 @@ export default async function CustomersPage({
                     Xem profile
                   </a>
                 ) : (
-                  <span className="text-muted-foreground">Chua co</span>
+                  <span className="text-muted-foreground">Chưa có</span>
                 )}
               </DataCell>
               <DataCell>{formatDate(customer.created_at)}</DataCell>
               <DataCell className="text-right">
                 <Button asChild variant="outline" size="sm">
-                  <Link href={`/customers/${customer.id}`}>Chi tiet</Link>
+                  <Link href={`/customers/${customer.id}`}>Chi tiết</Link>
                 </Button>
               </DataCell>
             </DataRow>
@@ -91,14 +91,14 @@ export default async function CustomersPage({
 
       <div className="flex items-center justify-between text-sm text-muted-foreground">
         <p>
-          Trang {result.pagination.page}/{result.pagination.totalPages} - {result.pagination.total} khach
-          hang
+          Trang {result.pagination.page}/{result.pagination.totalPages} - {result.pagination.total} khách
+          hàng
         </p>
         <div className="flex gap-2">
           {result.pagination.page > 1 ? (
             <Button asChild size="sm" variant="outline">
               <Link href={`/customers?page=${result.pagination.page - 1}&q=${result.q}`}>
-                Trang truoc
+                Trang trước
               </Link>
             </Button>
           ) : null}

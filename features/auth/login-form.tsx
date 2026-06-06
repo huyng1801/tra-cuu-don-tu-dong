@@ -60,7 +60,7 @@ export function LoginForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="password">Mat khau</Label>
+        <Label htmlFor="password">Mật khẩu</Label>
         <Input
           id="password"
           type="password"
@@ -79,9 +79,8 @@ export function LoginForm() {
 
       <Button className="w-full" size="lg" type="submit" disabled={isPending}>
         <LogIn className="size-4" />
-        {isPending ? "Dang dang nhap..." : "Dang nhap"}
+        {isPending ? "Đang đăng nhập..." : "Đăng nhập"}
       </Button>
     </form>
   );
 }
-

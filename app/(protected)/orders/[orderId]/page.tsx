@@ -43,15 +43,15 @@ export default async function OrderDetailPage({
     <div className="space-y-6">
       <PageHeader
         title={order.order_code}
-        description={`Cap nhat thong tin don va theo doi lien ket van don. Tao luc ${formatDateTime(order.created_at)}.`}
+        description={`Cập nhật thông tin đơn và theo dõi liên kết vận đơn. Tạo lúc ${formatDateTime(order.created_at)}.`}
       />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
         <Card>
           <CardHeader>
-            <CardTitle>Chinh sua don hang</CardTitle>
+            <CardTitle>Chỉnh sửa đơn hàng</CardTitle>
             <CardDescription>
-              Trang thai, tong tien va khach hang lien quan duoc cap nhat tai day.
+              Trạng thái, tổng tiền và khách hàng liên quan được cập nhật tại đây.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -75,19 +75,19 @@ export default async function OrderDetailPage({
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Tom tat</CardTitle>
+            <CardTitle>Tóm tắt</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Khach hang</span>
+                <span className="text-muted-foreground">Khách hàng</span>
                 <span className="font-medium">{order.customer?.name}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Tong tien</span>
+                <span className="text-muted-foreground">Tổng tiền</span>
                 <span className="font-semibold">{formatCurrency(order.total_price)}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Trang thai</span>
+                <span className="text-muted-foreground">Trạng thái</span>
                 <OrderStatusBadge status={order.status} />
               </div>
             </CardContent>
@@ -95,7 +95,7 @@ export default async function OrderDetailPage({
 
           <Card>
             <CardHeader>
-              <CardTitle>Van don lien ket</CardTitle>
+              <CardTitle>Vận đơn liên kết</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {order.shipment ? (
@@ -111,13 +111,13 @@ export default async function OrderDetailPage({
                   </DataRow>
                 </DataTable>
               ) : (
-                <p className="text-sm text-muted-foreground">Don nay chua duoc gan van don.</p>
+                <p className="text-sm text-muted-foreground">Đơn này chưa được gắn vận đơn.</p>
               )}
               <Link
                 href={order.shipment ? `/shipments/${order.shipment.id}` : `/shipments/new?orderId=${order.id}`}
                 className="inline-flex h-11 w-full items-center justify-center rounded-full bg-secondary px-5 text-sm font-semibold text-secondary-foreground"
               >
-                {order.shipment ? "Cap nhat van don" : "Gan van don"}
+                {order.shipment ? "Cập nhật vận đơn" : "Gắn vận đơn"}
               </Link>
             </CardContent>
           </Card>
