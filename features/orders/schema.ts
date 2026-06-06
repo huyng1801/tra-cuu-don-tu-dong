@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ORDER_STATUS_VALUES } from "@/lib/constants";
+import { CARRIER_VALUES, ORDER_STATUS_VALUES, SHIPPING_STATUS_VALUES } from "@/lib/constants";
 import { optionalText, paginationQuerySchema, optionalEnum } from "@/lib/validation";
 
 export const orderFormSchema = z
@@ -46,6 +46,8 @@ export const orderFormSchema = z
 
 export const ordersQuerySchema = paginationQuerySchema.extend({
   status: optionalEnum(ORDER_STATUS_VALUES),
+  carrier: optionalEnum(CARRIER_VALUES),
+  shippingStatus: optionalEnum(SHIPPING_STATUS_VALUES),
   customerId: z.string().trim().optional(),
 });
 

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { customerFormSchema } from "@/features/customers/schema";
-import { orderFormSchema } from "@/features/orders/schema";
+import { orderFormSchema, ordersQuerySchema } from "@/features/orders/schema";
 
 describe("form schemas", () => {
   it("normalizes optional customer fields", () => {
@@ -45,5 +45,18 @@ describe("form schemas", () => {
     expect(result.customer_name).toBe("Le Thi B");
     expect(result.note).toBeNull();
   });
-});
 
+  it("supports merged order and shipment filters", () => {
+    const result = ordersQuerySchema.parse({
+      q: "1004861706",
+      status: "shipping",
+      carrier: "ghtk",
+      shippingStatus: "delivered",
+    });
+
+    expect(result.q).toBe("1004861706");
+    expect(result.status).toBe("shipping");
+    expect(result.carrier).toBe("ghtk");
+    expect(result.shippingStatus).toBe("delivered");
+  });
+});

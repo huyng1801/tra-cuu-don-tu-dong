@@ -33,6 +33,8 @@ interface ShipmentFormProps {
   mode: "create" | "edit";
   shipmentId?: string;
   defaultValues?: Partial<ShipmentFormInput>;
+  hideOrderField?: boolean;
+  successPath?: string;
   orders: Array<{
     id: string;
     order_code: string;
@@ -44,6 +46,8 @@ export function ShipmentForm({
   mode,
   shipmentId,
   defaultValues,
+  hideOrderField = false,
+  successPath,
   orders,
 }: ShipmentFormProps) {
   const router = useRouter();
@@ -70,7 +74,10 @@ export function ShipmentForm({
 
         toast.success(result.message);
 
-        if (result.shipmentId) {
+        if (successPath) {
+          router.replace(successPath);
+          router.refresh();
+        } else if (result.shipmentId) {
           router.push(`/shipments/${result.shipmentId}`);
         }
       } else {
@@ -89,30 +96,32 @@ export function ShipmentForm({
 
   return (
     <form className="space-y-5" onSubmit={onSubmit}>
-      <div className="space-y-2">
-        <Label>Đơn hàng</Label>
-        <Controller
-          control={form.control}
-          name="order_id"
-          render={({ field }) => (
-            <Select value={field.value} onValueChange={field.onChange}>
-              <SelectTrigger>
-                <SelectValue placeholder="Chọn đơn hàng" />
-              </SelectTrigger>
-              <SelectContent>
-                {orders.map((order) => (
-                  <SelectItem key={order.id} value={order.id}>
-                    {order.order_code} - {order.product_name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
-        {form.formState.errors.order_id ? (
-          <p className="text-sm text-destructive">{form.formState.errors.order_id.message}</p>
-        ) : null}
-      </div>
+      {hideOrderField ? null : (
+        <div className="space-y-2">
+          <Label>Đơn hàng</Label>
+          <Controller
+            control={form.control}
+            name="order_id"
+            render={({ field }) => (
+              <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Chọn đơn hàng" />
+                </SelectTrigger>
+                <SelectContent>
+                  {orders.map((order) => (
+                    <SelectItem key={order.id} value={order.id}>
+                      {order.order_code} - {order.product_name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+          {form.formState.errors.order_id ? (
+            <p className="text-sm text-destructive">{form.formState.errors.order_id.message}</p>
+          ) : null}
+        </div>
+      )}
 
       <div className="grid gap-5 md:grid-cols-2">
         <div className="space-y-2">

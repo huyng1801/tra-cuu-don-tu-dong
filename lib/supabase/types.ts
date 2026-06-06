@@ -156,7 +156,34 @@ export interface Database {
         Relationships: [];
       };
     };
-    Views: Record<string, never>;
+    Views: {
+      order_shipments: {
+        Row: {
+          order_id: string;
+          owner_user_id: string;
+          order_code: string;
+          customer_id: string;
+          customer_name: string;
+          customer_phone: string;
+          customer_address: string | null;
+          product_name: string;
+          quantity: number;
+          unit_price: number;
+          total_price: number;
+          order_status: string;
+          order_note: string | null;
+          order_created_at: string;
+          shipment_id: string | null;
+          carrier: string | null;
+          tracking_code: string | null;
+          tracking_url: string | null;
+          shipping_status: string | null;
+          last_sync_at: string | null;
+          shipment_created_at: string | null;
+        };
+        Relationships: [];
+      };
+    };
     Functions: Record<string, never>;
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;

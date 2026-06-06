@@ -57,7 +57,7 @@ export async function getCustomerById(
   supabase: SupabaseClient<Database>,
   ownerUserId: string,
   id: string,
-) {
+): Promise<Database["public"]["Tables"]["customers"]["Row"]> {
   const { data, error } = await supabase
     .from("customers")
     .select("*")
@@ -69,7 +69,7 @@ export async function getCustomerById(
     throw new Error(error.message);
   }
 
-  return data;
+  return data as Database["public"]["Tables"]["customers"]["Row"];
 }
 
 export async function createCustomer(

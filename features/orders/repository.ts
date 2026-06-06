@@ -29,7 +29,10 @@ export interface OrderListItem {
     id: string;
     carrier: string;
     tracking_code: string;
+    tracking_url: string | null;
     shipping_status: string;
+    last_sync_at: string | null;
+    created_at: string;
   } | null;
 }
 
@@ -95,7 +98,7 @@ async function mapOrders(
       orderIds.length
         ? supabase
             .from("shipments")
-            .select("id,order_id,carrier,tracking_code,shipping_status")
+            .select("id,order_id,carrier,tracking_code,tracking_url,shipping_status,last_sync_at,created_at")
             .eq("owner_user_id", ownerUserId)
             .in("order_id", orderIds)
         : Promise.resolve({ data: [], error: null }),
@@ -127,47 +130,68 @@ export async function listOrders(
 ) {
   const parsed = ordersQuerySchema.parse(query);
   const { from, to } = getRange(parsed.page, parsed.pageSize);
-
-  let request = supabase
+  const { data, error } = await supabase
     .from("orders")
-    .select("*", {
-      count: "exact",
-    })
+    .select("*")
     .eq("owner_user_id", ownerUserId)
     .order("created_at", {
       ascending: false,
-    })
-    .range(from, to);
-
-  if (parsed.q) {
-    request = request.or(`order_code.ilike.%${parsed.q}%,product_name.ilike.%${parsed.q}%`);
-  }
-
-  if (parsed.status) {
-    request = request.eq("status", parsed.status);
-  }
-
-  if (parsed.customerId) {
-    request = request.eq("customer_id", parsed.customerId);
-  }
-
-  const { data, count, error } = await request;
+    });
 
   if (error) {
     throw new Error(error.message);
   }
 
-  const items = await mapOrders(supabase, ownerUserId, data ?? []);
+  const normalizedQuery = parsed.q?.trim().toLowerCase() ?? "";
+  const mappedItems = await mapOrders(supabase, ownerUserId, data ?? []);
+  const filteredItems = mappedItems.filter((item) => {
+    const haystack = [
+      item.order_code,
+      item.product_name,
+      item.customer?.name ?? "",
+      item.customer?.phone ?? "",
+      item.shipment?.tracking_code ?? "",
+    ]
+      .join(" ")
+      .toLowerCase();
+
+    if (normalizedQuery && !haystack.includes(normalizedQuery)) {
+      return false;
+    }
+
+    if (parsed.status && item.status !== parsed.status) {
+      return false;
+    }
+
+    if (parsed.customerId && item.customer_id !== parsed.customerId) {
+      return false;
+    }
+
+    if (parsed.carrier && item.shipment?.carrier !== parsed.carrier) {
+      return false;
+    }
+
+    if (parsed.shippingStatus && item.shipment?.shipping_status !== parsed.shippingStatus) {
+      return false;
+    }
+
+    return true;
+  });
+
+  const items = filteredItems.slice(from, to + 1);
+  const total = filteredItems.length;
 
   return {
     items,
     q: parsed.q,
     status: parsed.status,
+    carrier: parsed.carrier,
+    shippingStatus: parsed.shippingStatus,
     pagination: {
       page: parsed.page,
       pageSize: parsed.pageSize,
-      total: count ?? 0,
-      totalPages: Math.max(1, Math.ceil((count ?? 0) / parsed.pageSize)),
+      total,
+      totalPages: Math.max(1, Math.ceil(total / parsed.pageSize)),
     },
   };
 }
@@ -333,4 +357,3 @@ export async function deleteOrder(
     throw new Error(error.message);
   }
 }
-

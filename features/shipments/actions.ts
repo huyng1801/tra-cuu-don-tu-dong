@@ -36,6 +36,7 @@ export async function createShipmentAction(input: ShipmentFormValues) {
     const shipment = await createShipment(supabase, ownerUserId, parsed.data);
     revalidatePath("/shipments");
     revalidatePath("/orders");
+    revalidatePath(`/orders/${parsed.data.order_id}`);
 
     return {
       success: true,
@@ -67,6 +68,7 @@ export async function updateShipmentAction(id: string, input: ShipmentFormValues
     revalidatePath("/shipments");
     revalidatePath(`/shipments/${id}`);
     revalidatePath("/orders");
+    revalidatePath(`/orders/${parsed.data.order_id}`);
 
     return {
       success: true,
