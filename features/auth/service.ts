@@ -1,10 +1,10 @@
-import type { User } from "@supabase/supabase-js";
+import { cache } from "react";
 import { redirect } from "next/navigation";
 
 import { hasSupabaseConfig } from "@/lib/env";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-export async function getOptionalCurrentUser() {
+const getCachedCurrentUserProfile = cache(async () => {
   if (!hasSupabaseConfig()) {
     return null;
   }
@@ -14,11 +14,9 @@ export async function getOptionalCurrentUser() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return user;
-}
-
-async function ensureUserProfile(user: User) {
-  const supabase = await createSupabaseServerClient();
+  if (!user) {
+    return null;
+  }
 
   const { data, error } = await supabase
     .from("users")
@@ -43,7 +41,12 @@ async function ensureUserProfile(user: User) {
     throw new Error(error.message);
   }
 
-  return data;
+  return { user, profile: data };
+});
+
+export async function getOptionalCurrentUser() {
+  const result = await getCachedCurrentUserProfile();
+  return result?.user ?? null;
 }
 
 export async function requireCurrentUserProfile() {
@@ -51,13 +54,10 @@ export async function requireCurrentUserProfile() {
     redirect("/login");
   }
 
-  const user = await getOptionalCurrentUser();
-
-  if (!user) {
+  const result = await getCachedCurrentUserProfile();
+  if (!result) {
     redirect("/login");
   }
 
-  const profile = await ensureUserProfile(user);
-
-  return { user, profile };
+  return result;
 }

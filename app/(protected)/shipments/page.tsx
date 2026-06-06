@@ -64,7 +64,7 @@ export default async function ShipmentsPage({
       {result.items.length === 0 ? (
         <EmptyState
           title="Chưa có vận đơn"
-          description="Khi có đơn cần giao, tạo vận đơn thủ công và gắn mã tracking tại đây."
+          description="Khi có đơn cần giao, tạo vận đơn thủ công và gắn mã vận đơn tại đây."
         />
       ) : (
         <DataTable headers={["Đơn vị", "Mã vận đơn", "Đơn hàng", "Trạng thái", "Cập nhật", ""]}>
@@ -83,10 +83,10 @@ export default async function ShipmentsPage({
                       rel="noreferrer"
                       className="text-primary hover:underline"
                     >
-                      Mở link tra cứu
+                      Mở liên kết tra cứu
                     </a>
                   ) : (
-                    <span className="text-xs text-muted-foreground">Không có link sẵn</span>
+                    <span className="text-xs text-muted-foreground">Không có liên kết sẵn</span>
                   )}
                 </div>
               </DataCell>

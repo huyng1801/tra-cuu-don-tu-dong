@@ -53,7 +53,7 @@ export default async function LoginPage() {
               <CardHeader>
                 <CardTitle>Đăng nhập chủ shop</CardTitle>
                 <CardDescription>
-                  Sử dụng tài khoản email/password đã tạo trong Supabase Auth.
+                  Sử dụng tài khoản email và mật khẩu đã tạo trong hệ thống xác thực Supabase.
                 </CardDescription>
               </CardHeader>
               <CardContent>

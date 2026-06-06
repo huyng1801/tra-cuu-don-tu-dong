@@ -99,17 +99,17 @@ export function OrderForm({
     <form className="space-y-6" onSubmit={onSubmit}>
       <div className="grid gap-5 md:grid-cols-[220px_minmax(0,1fr)]">
         <div className="space-y-2">
-          <Label>Che do khach hang</Label>
+          <Label>Chế độ khách hàng</Label>
           <Controller
             control={form.control}
             name="customer_mode"
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Chon che do" />
+                  <SelectValue placeholder="Chọn chế độ" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="existing">Chon khach co san</SelectItem>
+                  <SelectItem value="existing">Chọn khách có sẵn</SelectItem>
                   <SelectItem value="new">Tạo nhanh khách mới</SelectItem>
                 </SelectContent>
               </Select>

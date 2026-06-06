@@ -8,13 +8,13 @@ export function ConfigurationNotice() {
       <CardHeader>
         <CardTitle>Cần cấu hình Supabase trước khi sử dụng</CardTitle>
         <CardDescription>
-          App đã được scaffold xong, nhưng chưa có biến môi trường để đăng nhập và đọc dữ liệu.
+          Ứng dụng đã được khởi tạo xong, nhưng chưa có biến môi trường để đăng nhập và đọc dữ liệu.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4 text-sm leading-7 text-muted-foreground">
         <p>
           Điền file <code>.env.local</code> từ <code>.env.example</code>, tạo schema Supabase
-          bằng migration và tạo chủ shop đầu tiên trong Supabase Auth.
+          bằng tập lệnh tạo cấu trúc dữ liệu và tạo chủ shop đầu tiên trong hệ thống xác thực Supabase.
         </p>
         <p>
           Sau khi cấu hình xong, vào trang{" "}

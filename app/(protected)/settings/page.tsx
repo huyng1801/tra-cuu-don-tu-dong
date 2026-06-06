@@ -20,7 +20,7 @@ export default async function SettingsPage() {
           <CardHeader>
             <CardTitle>Hồ sơ chủ shop</CardTitle>
             <CardDescription>
-              V1 chỉ có một tài khoản chủ shop, đăng nhập bằng email/password Supabase Auth.
+              V1 chỉ có một tài khoản chủ shop, đăng nhập bằng email và mật khẩu trong hệ thống xác thực Supabase.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -32,27 +32,27 @@ export default async function SettingsPage() {
           <CardHeader>
             <CardTitle>Tình trạng tích hợp</CardTitle>
             <CardDescription>
-              Secret vẫn được quản lý bằng file env và dashboard, không sửa trong UI.
+              Các khóa bí mật vẫn được quản lý bằng file env và dashboard, không sửa trong giao diện.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 text-sm">
             {[
-              { label: "Supabase URL", ready: Boolean(env.NEXT_PUBLIC_SUPABASE_URL) },
+              { label: "URL Supabase", ready: Boolean(env.NEXT_PUBLIC_SUPABASE_URL) },
               {
-                label: "Supabase Anon Key",
+                label: "Khóa ẩn danh Supabase",
                 ready: Boolean(env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
               },
               {
-                label: "Supabase Service Role",
+                label: "Khóa vai trò dịch vụ Supabase",
                 ready: Boolean(env.SUPABASE_SERVICE_ROLE_KEY),
               },
               {
-                label: "Facebook Verify Token",
+                label: "Mã xác minh Facebook",
                 ready: Boolean(env.FACEBOOK_VERIFY_TOKEN),
               },
-              { label: "Facebook App ID", ready: Boolean(env.FACEBOOK_APP_ID) },
+              { label: "Mã ứng dụng Facebook", ready: Boolean(env.FACEBOOK_APP_ID) },
               {
-                label: "Facebook App Secret",
+                label: "Khóa bí mật ứng dụng Facebook",
                 ready: Boolean(env.FACEBOOK_APP_SECRET),
               },
             ].map(({ label, ready }) => (

@@ -33,11 +33,11 @@ export default async function NewOrderPage({
   }
 
   const defaultValues = eventPrefill
-      ? {
+    ? {
         customer_mode: "new" as const,
         customer_name: eventPrefill.customer_name ?? "",
         customer_phone: eventPrefill.customer_phone ?? "",
-        product_name: "Đơn từ Facebook event",
+        product_name: "Đơn từ sự kiện Facebook",
         note: eventPrefill.note,
       }
     : {
@@ -53,7 +53,7 @@ export default async function NewOrderPage({
     <div className="space-y-6">
       <PageHeader
         title="Tạo đơn hàng"
-        description="Chọn khách có sẵn hoặc tạo nhanh khách mới ngay trong form đơn."
+        description="Chọn khách có sẵn hoặc tạo nhanh khách mới ngay trong biểu mẫu đơn."
       />
       <Card>
         <CardHeader>

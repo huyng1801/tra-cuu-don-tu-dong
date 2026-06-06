@@ -43,7 +43,7 @@ export default async function OrderDetailPage({
     <div className="space-y-6">
       <PageHeader
         title={order.order_code}
-        description={`Cập nhật thông tin đơn và theo dõi liên kết vận đơn. Tạo lúc ${formatDateTime(order.created_at)}.`}
+        description={`Cập nhật thông tin đơn và theo dõi liên kết vận đơn. Tạo vào lúc ${formatDateTime(order.created_at)}.`}
       />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
@@ -75,7 +75,7 @@ export default async function OrderDetailPage({
         <div className="space-y-6">
           <Card>
             <CardHeader>
-            <CardTitle>Tóm tắt</CardTitle>
+              <CardTitle>Tóm tắt</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <div className="flex items-center justify-between">
@@ -99,7 +99,7 @@ export default async function OrderDetailPage({
             </CardHeader>
             <CardContent className="space-y-4">
               {order.shipment ? (
-                <DataTable headers={["Carrier", "Tracking", "Trang thai"]}>
+                <DataTable headers={["Đơn vị", "Mã vận đơn", "Trạng thái"]}>
                   <DataRow>
                     <DataCell>
                       <CarrierBadge carrier={order.shipment.carrier as never} />

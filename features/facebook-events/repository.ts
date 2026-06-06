@@ -77,8 +77,8 @@ export async function getCustomerEventPrefill(
     phone: extracted.phone ?? "",
     note:
       extracted.textSnippets.length > 0
-        ? `Khởi tạo từ Facebook event ${event.id.slice(0, 8)}\n${extracted.textSnippets.join("\n")}`
-        : `Khởi tạo từ Facebook event ${event.id.slice(0, 8)}`,
+        ? `Khởi tạo từ sự kiện Facebook ${event.id.slice(0, 8)}\n${extracted.textSnippets.join("\n")}`
+        : `Khởi tạo từ sự kiện Facebook ${event.id.slice(0, 8)}`,
   };
 }
 
@@ -95,8 +95,8 @@ export async function getOrderEventPrefill(
     customer_phone: extracted.phone,
     note:
       extracted.textSnippets.length > 0
-        ? `Khởi tạo từ Facebook event ${event.id.slice(0, 8)}\n${extracted.textSnippets.join("\n")}`
-        : `Khởi tạo từ Facebook event ${event.id.slice(0, 8)}`,
+        ? `Khởi tạo từ sự kiện Facebook ${event.id.slice(0, 8)}\n${extracted.textSnippets.join("\n")}`
+        : `Khởi tạo từ sự kiện Facebook ${event.id.slice(0, 8)}`,
   };
 }
 

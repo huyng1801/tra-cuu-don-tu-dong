@@ -35,7 +35,7 @@ export default async function NewShipmentPage({
         <CardHeader>
           <CardTitle>Thông tin vận đơn</CardTitle>
           <CardDescription>
-            Link tra cứu sẽ được sinh tự động theo đơn vị vận chuyển.
+            Liên kết tra cứu sẽ được sinh tự động theo đơn vị vận chuyển.
           </CardDescription>
         </CardHeader>
         <CardContent>

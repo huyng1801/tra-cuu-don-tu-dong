@@ -34,14 +34,14 @@ export default async function ShipmentDetailPage({
     <div className="space-y-6">
       <PageHeader
         title={shipment.tracking_code}
-        description="Cập nhật mã tracking, đơn vị vận chuyển và trạng thái giao hàng."
+        description="Cập nhật mã vận đơn, đơn vị vận chuyển và trạng thái giao hàng."
       />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
         <Card>
           <CardHeader>
             <CardTitle>Chỉnh sửa vận đơn</CardTitle>
-            <CardDescription>Đồng bộ thủ công theo thông tin bạn thu thập được.</CardDescription>
+            <CardDescription>Cập nhật thủ công theo thông tin bạn thu thập được.</CardDescription>
           </CardHeader>
           <CardContent>
             <ShipmentForm
@@ -72,7 +72,7 @@ export default async function ShipmentDetailPage({
               <ShippingStatusBadge status={shipment.shipping_status as never} />
             </div>
             <div className="space-y-2">
-              <p className="text-muted-foreground">Link tra cứu</p>
+              <p className="text-muted-foreground">Liên kết tra cứu</p>
               {shipment.tracking_url ? (
                 <a
                   href={shipment.tracking_url}
@@ -83,7 +83,7 @@ export default async function ShipmentDetailPage({
                   {shipment.tracking_url}
                 </a>
               ) : (
-                <p>Chưa có link sẵn cho carrier này.</p>
+                <p>Chưa có liên kết tra cứu sẵn cho đơn vị này.</p>
               )}
             </div>
           </CardContent>

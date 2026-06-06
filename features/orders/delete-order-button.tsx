@@ -24,7 +24,7 @@ export function DeleteOrderButton({ orderId }: { orderId: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Xoa don hang</Button>
+        <Button variant="destructive">Xóa đơn hàng</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

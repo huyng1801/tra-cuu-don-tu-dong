@@ -98,7 +98,7 @@ export function CustomerForm({
       <div className="grid gap-5 md:grid-cols-2">
         <Field
           name="facebook_url"
-          label="Facebook profile URL"
+          label="URL hồ sơ Facebook"
           error={form.formState.errors.facebook_url?.message}
           input={
             <Input
@@ -110,14 +110,14 @@ export function CustomerForm({
         />
         <Field
           name="facebook_uid"
-          label="Facebook UID"
+          label="Mã UID Facebook"
           error={form.formState.errors.facebook_uid?.message}
           input={<Input id="facebook_uid" placeholder="1000..." {...form.register("facebook_uid")} />}
         />
       </div>
 
       <Field
-          name="address"
+        name="address"
         label="Địa chỉ giao hàng"
         error={form.formState.errors.address?.message}
         input={

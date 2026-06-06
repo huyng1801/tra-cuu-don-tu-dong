@@ -24,7 +24,7 @@ export function DeleteCustomerButton({ customerId }: { customerId: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Xoa khach hang</Button>
+        <Button variant="destructive">Xóa khách hàng</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

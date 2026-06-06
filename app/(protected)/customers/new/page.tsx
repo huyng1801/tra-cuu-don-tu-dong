@@ -33,7 +33,7 @@ export default async function NewCustomerPage({
         <CardHeader>
           <CardTitle>Thông tin khách hàng</CardTitle>
           <CardDescription>
-            Có thể điền tay hoặc khởi tạo nhanh từ dữ liệu trích xuất từ Facebook event.
+            Có thể điền tay hoặc khởi tạo nhanh từ dữ liệu trích xuất từ sự kiện Facebook.
           </CardDescription>
         </CardHeader>
         <CardContent>

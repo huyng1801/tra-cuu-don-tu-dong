@@ -27,13 +27,13 @@ export default async function FacebookEventsPage({
     <div className="space-y-6">
       <PageHeader
         title="Sự kiện Facebook"
-        description="Lưu payload gốc từ webhook Meta và trích xuất nhanh tên, số điện thoại, mã tracking nếu có."
+        description="Lưu dữ liệu gốc từ webhook Meta và trích xuất nhanh tên, số điện thoại, mã vận đơn nếu có."
       />
 
       {result.items.length === 0 ? (
         <EmptyState
           title="Chưa có sự kiện nào"
-          description="Sau khi xác minh webhook với Meta, sự kiện inbox/comment/lead sẽ được lưu ở đây."
+          description="Sau khi xác minh webhook với Meta, các sự kiện tin nhắn, bình luận hoặc biểu mẫu sẽ được lưu ở đây."
         />
       ) : (
         <div className="grid gap-5 xl:grid-cols-2">
@@ -44,7 +44,7 @@ export default async function FacebookEventsPage({
                   <CardTitle>{event.event_type}</CardTitle>
                   <Badge variant="muted">{formatDateTime(event.received_at)}</Badge>
                 </div>
-                <CardDescription>ID: {event.id}</CardDescription>
+                <CardDescription>Mã sự kiện: {event.id}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex flex-wrap gap-2">
@@ -55,7 +55,7 @@ export default async function FacebookEventsPage({
                     SĐT: {event.extracted.phone ?? "Không có"}
                   </Badge>
                   <Badge variant={event.extracted.trackingCode ? "warning" : "muted"}>
-                    Mã tracking: {event.extracted.trackingCode ?? "Không có"}
+                    Mã vận đơn: {event.extracted.trackingCode ?? "Không có"}
                   </Badge>
                 </div>
 
@@ -89,7 +89,7 @@ export default async function FacebookEventsPage({
 
                 <details className="rounded-3xl border border-border/70 bg-card/80 p-4">
                   <summary className="cursor-pointer text-sm font-semibold text-foreground">
-                    Xem payload gốc
+                    Xem dữ liệu gốc
                   </summary>
                   <pre className="mt-4 overflow-x-auto whitespace-pre-wrap text-xs leading-6 text-muted-foreground">
                     {JSON.stringify(event.payload_json, null, 2)}
