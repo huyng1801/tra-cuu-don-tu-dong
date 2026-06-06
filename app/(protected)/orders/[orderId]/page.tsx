@@ -5,6 +5,8 @@ import { requireCurrentUserProfile } from "@/features/auth/service";
 import { DeleteOrderButton } from "@/features/orders/delete-order-button";
 import { OrderForm } from "@/features/orders/order-form";
 import { getOrderById } from "@/features/orders/repository";
+import { ShareOrderCard } from "@/features/orders/share-order-card";
+import { listProductsForPicker } from "@/features/products/repository";
 import { ShipmentForm } from "@/features/shipments/shipment-form";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { formatCurrency, formatDateTime } from "@/lib/utils";
@@ -20,13 +22,14 @@ export default async function OrderDetailPage({
     createSupabaseServerClient(),
   ]);
 
-  const [{ data: customers, error: customersError }, order] = await Promise.all([
+  const [{ data: customers, error: customersError }, order, products] = await Promise.all([
     supabase
       .from("customers")
       .select("id,name,phone")
       .eq("owner_user_id", user.id)
       .order("created_at", { ascending: false }),
     getOrderById(supabase, user.id, orderId),
+    listProductsForPicker(supabase, user.id),
   ]);
 
   if (customersError) {
@@ -54,9 +57,11 @@ export default async function OrderDetailPage({
                 mode="edit"
                 orderId={order.id}
                 customers={customers ?? []}
+                products={products}
                 defaultValues={{
                   customer_mode: "existing",
                   customer_id: order.customer_id,
+                  product_id: order.product_id ?? "",
                   product_name: order.product_name,
                   quantity: order.quantity,
                   unit_price: order.unit_price,
@@ -112,6 +117,12 @@ export default async function OrderDetailPage({
                 <span className="text-muted-foreground">Số điện thoại</span>
                 <span className="text-right font-medium">{order.customer?.phone}</span>
               </div>
+              <div className="flex items-start justify-between gap-3">
+                <span className="text-muted-foreground">Địa chỉ</span>
+                <span className="text-right font-medium">
+                  {order.customer?.address?.trim() || "Chưa có"}
+                </span>
+              </div>
               <div className="flex items-center justify-between gap-3">
                 <span className="text-muted-foreground">Tổng tiền</span>
                 <span className="text-right font-semibold">{formatCurrency(order.total_price)}</span>
@@ -159,6 +170,8 @@ export default async function OrderDetailPage({
               </div>
             </CardContent>
           </Card>
+
+          <ShareOrderCard order={order} />
 
           <DeleteOrderButton orderId={order.id} />
         </div>

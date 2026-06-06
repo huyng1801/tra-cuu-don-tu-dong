@@ -62,12 +62,75 @@ export interface Database {
         };
         Relationships: [];
       };
+      products: {
+        Row: {
+          id: string;
+          owner_user_id: string;
+          name: string;
+          sku_code: string;
+          unit: string;
+          default_unit_price: number;
+          label_image_path: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          owner_user_id: string;
+          name: string;
+          sku_code?: string;
+          unit?: string;
+          default_unit_price?: number;
+          label_image_path?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          name?: string;
+          sku_code?: string;
+          unit?: string;
+          default_unit_price?: number;
+          label_image_path?: string | null;
+        };
+        Relationships: [];
+      };
+      shop_settings: {
+        Row: {
+          owner_user_id: string;
+          company_name: string;
+          company_address: string;
+          tax_code: string;
+          document_code: string;
+          slip_number_prefix: string;
+          warehouse_name: string;
+          updated_at: string;
+        };
+        Insert: {
+          owner_user_id: string;
+          company_name?: string;
+          company_address?: string;
+          tax_code?: string;
+          document_code?: string;
+          slip_number_prefix?: string;
+          warehouse_name?: string;
+          updated_at?: string;
+        };
+        Update: {
+          company_name?: string;
+          company_address?: string;
+          tax_code?: string;
+          document_code?: string;
+          slip_number_prefix?: string;
+          warehouse_name?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       orders: {
         Row: {
           id: string;
           owner_user_id: string;
           order_code: string;
           customer_id: string;
+          product_id: string | null;
           product_name: string;
           quantity: number;
           unit_price: number;
@@ -81,6 +144,7 @@ export interface Database {
           owner_user_id: string;
           order_code: string;
           customer_id: string;
+          product_id?: string | null;
           product_name: string;
           quantity: number;
           unit_price: number;
@@ -91,6 +155,7 @@ export interface Database {
         };
         Update: {
           customer_id?: string;
+          product_id?: string | null;
           product_name?: string;
           quantity?: number;
           unit_price?: number;
@@ -166,7 +231,11 @@ export interface Database {
           customer_name: string;
           customer_phone: string;
           customer_address: string | null;
+          product_id: string | null;
           product_name: string;
+          product_sku_code: string | null;
+          product_unit: string | null;
+          product_label_image_path: string | null;
           quantity: number;
           unit_price: number;
           total_price: number;

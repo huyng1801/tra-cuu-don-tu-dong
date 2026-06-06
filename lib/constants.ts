@@ -59,6 +59,7 @@ export const CARRIER_LABELS: Record<CarrierCode, string> = {
 export const SIDEBAR_ITEMS = [
   { href: "/dashboard", label: "Tổng quan" },
   { href: "/customers", label: "Khách hàng" },
+  { href: "/products", label: "Sản phẩm & nhãn" },
   { href: "/orders", label: "Đơn hàng & vận đơn" },
   { href: "/facebook-events", label: "Sự kiện Facebook" },
   { href: "/settings", label: "Cài đặt" },

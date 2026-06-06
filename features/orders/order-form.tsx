@@ -35,6 +35,13 @@ interface OrderFormProps {
     name: string;
     phone: string;
   }>;
+  products?: Array<{
+    id: string;
+    name: string;
+    sku_code: string;
+    unit: string;
+    default_unit_price: number;
+  }>;
 }
 
 export function OrderForm({
@@ -42,6 +49,7 @@ export function OrderForm({
   orderId,
   defaultValues,
   customers,
+  products = [],
 }: OrderFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -53,6 +61,7 @@ export function OrderForm({
       customer_name: defaultValues?.customer_name ?? "",
       customer_phone: defaultValues?.customer_phone ?? "",
       customer_address: defaultValues?.customer_address ?? null,
+      product_id: defaultValues?.product_id ?? "",
       product_name: defaultValues?.product_name ?? "",
       quantity: defaultValues?.quantity ?? 1,
       unit_price: defaultValues?.unit_price ?? 0,
@@ -184,6 +193,51 @@ export function OrderForm({
           </div>
         )}
       </div>
+
+      {products.length > 0 ? (
+        <div className="space-y-2">
+          <Label>Chọn từ danh mục sản phẩm</Label>
+          <Controller
+            control={form.control}
+            name="product_id"
+            render={({ field }) => (
+              <Select
+                value={field.value || "none"}
+                onValueChange={(value) => {
+                  if (value === "none") {
+                    field.onChange("");
+                    return;
+                  }
+
+                  const selected = products.find((product) => product.id === value);
+
+                  if (!selected) {
+                    field.onChange(value);
+                    return;
+                  }
+
+                  field.onChange(value);
+                  form.setValue("product_name", selected.name);
+                  form.setValue("unit_price", selected.default_unit_price);
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Chọn sản phẩm (tuỳ chọn)" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">Nhập tay / không chọn</SelectItem>
+                  {products.map((product) => (
+                    <SelectItem key={product.id} value={product.id}>
+                      {product.name}
+                      {product.sku_code ? ` (${product.sku_code})` : ""}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+        </div>
+      ) : null}
 
       <div className="grid gap-5 md:grid-cols-2">
         <Field

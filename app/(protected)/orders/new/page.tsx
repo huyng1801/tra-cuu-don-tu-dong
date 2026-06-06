@@ -4,6 +4,7 @@ import { requireCurrentUserProfile } from "@/features/auth/service";
 import { OrderForm } from "@/features/orders/order-form";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getOrderEventPrefill } from "@/features/facebook-events/repository";
+import { listProductsForPicker } from "@/features/products/repository";
 
 export default async function NewOrderPage({
   searchParams,
@@ -19,13 +20,14 @@ export default async function NewOrderPage({
     createSupabaseServerClient(),
   ]);
 
-  const [{ data: customers, error: customersError }, eventPrefill] = await Promise.all([
+  const [{ data: customers, error: customersError }, eventPrefill, products] = await Promise.all([
     supabase
       .from("customers")
       .select("id,name,phone")
       .eq("owner_user_id", user.id)
       .order("created_at", { ascending: false }),
     facebookEventId ? getOrderEventPrefill(supabase, user.id, facebookEventId) : undefined,
+    listProductsForPicker(supabase, user.id),
   ]);
 
   if (customersError) {
@@ -63,7 +65,12 @@ export default async function NewOrderPage({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <OrderForm mode="create" customers={customers ?? []} defaultValues={defaultValues} />
+          <OrderForm
+            mode="create"
+            customers={customers ?? []}
+            products={products}
+            defaultValues={defaultValues}
+          />
         </CardContent>
       </Card>
     </div>

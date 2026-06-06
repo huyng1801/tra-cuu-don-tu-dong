@@ -34,6 +34,13 @@ export interface OrderListItem {
     last_sync_at: string | null;
     created_at: string;
   } | null;
+  product: {
+    id: string;
+    name: string;
+    sku_code: string;
+    unit: string;
+    label_image_path: string | null;
+  } | null;
 }
 
 async function resolveCustomerId(
@@ -236,7 +243,7 @@ export async function getOrderById(
     throw new Error(error.message);
   }
 
-  const [customer, shipment] = await Promise.all([
+  const [customer, shipment, product] = await Promise.all([
     supabase
       .from("customers")
       .select("id,name,phone,address")
@@ -249,6 +256,14 @@ export async function getOrderById(
       .eq("owner_user_id", ownerUserId)
       .eq("order_id", id)
       .maybeSingle(),
+    data.product_id
+      ? supabase
+          .from("products")
+          .select("id,name,sku_code,unit,label_image_path")
+          .eq("owner_user_id", ownerUserId)
+          .eq("id", data.product_id)
+          .maybeSingle()
+      : Promise.resolve({ data: null, error: null }),
   ]);
 
   if (customer.error) {
@@ -259,11 +274,16 @@ export async function getOrderById(
     throw new Error(shipment.error.message);
   }
 
+  if (product.error) {
+    throw new Error(product.error.message);
+  }
+
   return {
     ...data,
     status: data.status as OrderListItem["status"],
     customer: customer.data,
     shipment: shipment.data,
+    product: product.data,
   };
 }
 
@@ -282,6 +302,7 @@ export async function createOrder(
       owner_user_id: ownerUserId,
       order_code: generateOrderCode(),
       customer_id: customerId,
+      product_id: values.product_id || null,
       product_name: values.product_name,
       quantity: values.quantity,
       unit_price: values.unit_price,
@@ -313,6 +334,7 @@ export async function updateOrder(
     .from("orders")
     .update({
       customer_id: customerId,
+      product_id: values.product_id || null,
       product_name: values.product_name,
       quantity: values.quantity,
       unit_price: values.unit_price,
