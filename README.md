@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CRM ban hang ca nhan
 
-## Getting Started
+Ung dung `Next.js 15 + Supabase` de quan ly khach hang, don hang, van don va Facebook webhook cho shop nho.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- `Next.js 15` App Router, Server Components, Server Actions
+- `TypeScript strict`, `Tailwind CSS`, UI theo pattern `shadcn/ui`
+- `Supabase Auth + PostgreSQL`
+- `Vitest + Testing Library`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Chay local
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Cai package:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+2. Tao file env:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   cp .env.example .env.local
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Dien bien moi truong Supabase/Facebook vao `.env.local`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Chay migration `supabase/migrations/0001_initial_schema.sql` trong Supabase SQL Editor.
 
-## Deploy on Vercel
+5. Tao owner dau tien trong `Supabase Auth` bang email/password.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+6. Chay app:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npm run dev
+   ```
+
+## Scripts
+
+- `npm run dev`: chay local
+- `npm run typecheck`: kiem tra TypeScript
+- `npm run lint`: kiem tra ESLint
+- `npm run test`: chay Vitest
+- `npm run build`: build production
+
+## Luong v1
+
+- `Dashboard`: tong quan don, khach, doanh thu tam tinh, bieu do 7 ngay
+- `Khach hang`: CRUD, tim kiem, xem lich su don
+- `Don hang`: CRUD, 1 san pham / don, tu dong tinh tong tien
+- `Van don`: nhap tay carrier + tracking, sinh link tra cuu
+- `Facebook Events`: luu raw payload, trich xuat ten/so dien thoai/tracking, tao nhanh customer/order draft
+- `Settings`: cap nhat ten owner, kiem tra env integrations
+
+## Luu y van hanh
+
+- V1 khong co cron va khong dong bo API hang van chuyen.
+- Webhook Facebook dung `X-Hub-Signature-256` de xac thuc payload.
+- He thong gia dinh `1 owner`; webhook se gan event vao owner dau tien trong `public.users`.

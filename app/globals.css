@@ -1,26 +1,136 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4efe6;
+  --foreground: #14221d;
+  --card: #fffdf9;
+  --card-foreground: #14221d;
+  --muted: #e4ddd0;
+  --muted-foreground: #5d6a63;
+  --popover: #fffdf9;
+  --popover-foreground: #14221d;
+  --primary: #173a34;
+  --primary-foreground: #f7f3eb;
+  --secondary: #dba45d;
+  --secondary-foreground: #2e2112;
+  --accent: #efe6d7;
+  --accent-foreground: #173a34;
+  --destructive: #b1453b;
+  --destructive-foreground: #fff8f3;
+  --border: #d4c8b6;
+  --input: #e4ddd0;
+  --ring: #173a34;
+  --success: #1e6c57;
+  --warning: #a86e25;
+  --chart-1: #173a34;
+  --chart-2: #dba45d;
+  --chart-3: #7d8a68;
+  --chart-4: #b1453b;
+  --chart-5: #3d5e56;
+  --radius: 1.25rem;
+  --sidebar: #173a34;
+  --sidebar-foreground: #f8f2e8;
+  --sidebar-muted: rgba(248, 242, 232, 0.62);
+  --sidebar-border: rgba(248, 242, 232, 0.12);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-ibm-plex-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at top right, rgba(219, 164, 93, 0.28), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(23, 58, 52, 0.14), transparent 30%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(244, 239, 230, 0.92));
+}
+
+a,
+button,
+input,
+textarea,
+[role="button"] {
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+::selection {
+  background: rgba(219, 164, 93, 0.28);
+}
+
+.surface-grid {
+  background-image:
+    linear-gradient(rgba(20, 34, 29, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 34, 29, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.surface-dots {
+  background-image: radial-gradient(rgba(23, 58, 52, 0.12) 0.8px, transparent 0.8px);
+  background-size: 16px 16px;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(23, 58, 52, 0.28) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(23, 58, 52, 0.18);
+  border-radius: 999px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
 }
