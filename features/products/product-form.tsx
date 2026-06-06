@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useTransition, type ReactNode } from "react";
+import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getProductLabelUrl } from "@/lib/product-labels";
+import { validateProductLabelFile } from "@/lib/product-label-upload";
 
 interface ProductFormProps {
   mode: "create" | "edit";
@@ -34,7 +35,10 @@ export function ProductForm({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const labelInputRef = useRef<HTMLInputElement>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   const currentLabelUrl = getProductLabelUrl(currentLabelPath);
+  const displayLabelUrl = previewUrl ?? currentLabelUrl;
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productFormSchema),
@@ -46,8 +50,48 @@ export function ProductForm({
     },
   });
 
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
+  function handleLabelChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      setSelectedFileName(null);
+      setPreviewUrl(null);
+      return;
+    }
+
+    const validationError = validateProductLabelFile(file);
+
+    if (validationError) {
+      toast.error(validationError);
+      event.target.value = "";
+      setSelectedFileName(null);
+      setPreviewUrl(null);
+      return;
+    }
+
+    setSelectedFileName(file.name);
+    setPreviewUrl(URL.createObjectURL(file));
+  }
+
   const onSubmit = form.handleSubmit((values) => {
     const labelFile = labelInputRef.current?.files?.[0] ?? null;
+
+    if (labelFile) {
+      const validationError = validateProductLabelFile(labelFile);
+
+      if (validationError) {
+        toast.error(validationError);
+        return;
+      }
+    }
 
     startTransition(async () => {
       if (mode === "create") {
@@ -120,14 +164,17 @@ export function ProductForm({
 
       <div className="space-y-3">
         <Label htmlFor="label_image">Ảnh nhãn sản phẩm</Label>
-        {currentLabelUrl ? (
-          <div className="overflow-hidden rounded-2xl border border-border/70 bg-accent/40 p-3">
+        {displayLabelUrl ? (
+          <div className="overflow-hidden rounded-2xl border border-border/70 bg-white p-4">
+            <p className="mb-3 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+              {previewUrl ? "Xem trước ảnh sẽ upload" : "Nhãn hiện tại trên Supabase"}
+            </p>
             <Image
-              src={currentLabelUrl}
-              alt="Nhãn sản phẩm hiện tại"
-              width={320}
-              height={320}
-              className="mx-auto max-h-48 w-auto object-contain"
+              src={displayLabelUrl}
+              alt="Nhãn sản phẩm"
+              width={480}
+              height={480}
+              className="mx-auto max-h-56 w-full object-contain"
               unoptimized
             />
           </div>
@@ -136,12 +183,17 @@ export function ProductForm({
           id="label_image"
           ref={labelInputRef}
           type="file"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/webp,image/gif"
           className="cursor-pointer"
+          onChange={handleLabelChange}
         />
         <p className="text-sm text-muted-foreground">
-          Tải ảnh nhãn để hiển thị khi chia sẻ đơn qua Zalo.
+          JPG, PNG, WEBP hoặc GIF — tối đa 5MB. Ảnh được lưu vào Supabase Storage bucket{" "}
+          <span className="font-mono text-xs">product-labels</span>.
         </p>
+        {selectedFileName ? (
+          <p className="text-sm font-medium text-foreground">Đã chọn: {selectedFileName}</p>
+        ) : null}
       </div>
 
       <Button type="submit" disabled={isPending}>

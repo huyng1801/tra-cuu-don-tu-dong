@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Copy, Download, Share2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -13,9 +12,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { OrderSharePreview } from "@/features/orders/order-share-preview";
 import { formatOrderShareText } from "@/features/orders/format-order-share";
 import { getProductLabelUrl } from "@/lib/product-labels";
-import { formatCurrency } from "@/lib/utils";
 
 interface ShareOrderCardProps {
   order: {
@@ -51,54 +50,50 @@ export function ShareOrderCard({ order }: ShareOrderCardProps) {
     <div className="flex flex-col gap-3">
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline" className="w-full justify-start">
-            <Share2 className="size-4" />
+          <Button variant="outline" className="w-full justify-start gap-2">
+            <Share2 className="size-4 shrink-0" />
             Chia sẻ đơn
           </Button>
         </DialogTrigger>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle>Chia sẻ đơn qua Zalo</DialogTitle>
-            <DialogDescription>
-              Chụp màn hình hoặc sao chép nội dung bên dưới để gửi cho kế toán / xưởng.
-            </DialogDescription>
-          </DialogHeader>
+        <DialogContent className="max-h-[90vh] max-w-md overflow-y-auto p-0 sm:max-w-lg">
+          <div className="space-y-4 p-6">
+            <DialogHeader className="space-y-1 text-left">
+              <DialogTitle>Chia sẻ đơn qua Zalo</DialogTitle>
+              <DialogDescription>
+                Chụp khung bên dưới hoặc sao chép nội dung text để gửi kế toán / xưởng.
+              </DialogDescription>
+            </DialogHeader>
 
-          <div className="space-y-4 rounded-2xl border border-border/70 bg-card p-4">
-            <pre className="whitespace-pre-wrap font-sans text-sm leading-6 text-foreground">
-              {shareText}
-            </pre>
+            <OrderSharePreview
+              orderCode={order.order_code}
+              productName={order.product_name}
+              totalPrice={order.total_price}
+              customerName={order.customer?.name}
+              customerPhone={order.customer?.phone}
+              customerAddress={order.customer?.address}
+              labelUrl={labelUrl}
+            />
 
-            {labelUrl ? (
-              <div className="overflow-hidden rounded-2xl border border-border/70 bg-accent/40 p-3">
-                <p className="mb-2 text-sm font-medium text-muted-foreground">Nhãn sản phẩm</p>
-                <Image
-                  src={labelUrl}
-                  alt={order.product_name}
-                  width={480}
-                  height={480}
-                  className="mx-auto max-h-64 w-auto object-contain"
-                  unoptimized
-                />
-              </div>
-            ) : null}
+            <details className="rounded-2xl border border-border/70 bg-accent/30 px-4 py-3 text-sm">
+              <summary className="cursor-pointer font-medium text-foreground">
+                Xem nội dung text để copy
+              </summary>
+              <pre className="mt-3 whitespace-pre-wrap font-sans text-sm leading-6 text-muted-foreground">
+                {shareText}
+              </pre>
+            </details>
 
-            <div className="flex items-center justify-between rounded-xl bg-accent/50 px-4 py-3 text-sm">
-              <span className="text-muted-foreground">COD</span>
-              <span className="font-semibold">{formatCurrency(order.total_price)}</span>
-            </div>
+            <Button type="button" className="w-full gap-2" onClick={copyShareText}>
+              <Copy className="size-4" />
+              Sao chép nội dung
+            </Button>
           </div>
-
-          <Button type="button" onClick={copyShareText}>
-            <Copy className="size-4" />
-            Sao chép nội dung
-          </Button>
         </DialogContent>
       </Dialog>
 
-      <Button asChild variant="outline" className="w-full justify-start">
+      <Button asChild variant="outline" className="w-full justify-start gap-2">
         <a href={`/api/orders/${order.id}/export-warehouse-slip`}>
-          <Download className="size-4" />
+          <Download className="size-4 shrink-0" />
           Xuất phiếu xuất kho
         </a>
       </Button>

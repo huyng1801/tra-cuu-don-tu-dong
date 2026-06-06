@@ -1,5 +1,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
+import {
+  resolveLabelContentType,
+  validateProductLabelFile,
+} from "@/lib/product-label-upload";
 import { getRange } from "@/lib/utils";
 import type { Database } from "@/lib/supabase/types";
 import {
@@ -217,12 +221,23 @@ export async function uploadProductLabel(
   productId: string,
   file: File,
 ) {
+  const validationError = validateProductLabelFile(file);
+
+  if (validationError) {
+    throw new Error(validationError);
+  }
+
   const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
   const path = `${ownerUserId}/${productId}.${extension}`;
+  const contentType = resolveLabelContentType(file);
+
+  if (!contentType) {
+    throw new Error("Chỉ hỗ trợ ảnh JPG, PNG, WEBP hoặc GIF.");
+  }
 
   const { error: uploadError } = await supabase.storage
     .from("product-labels")
-    .upload(path, file, { upsert: true, contentType: file.type });
+    .upload(path, file, { upsert: true, contentType });
 
   if (uploadError) {
     throw new Error(uploadError.message);

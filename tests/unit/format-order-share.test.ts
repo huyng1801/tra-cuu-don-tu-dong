@@ -20,6 +20,6 @@ describe("formatOrderShareText", () => {
     expect(text).toContain("SĐT: 0912345678");
     expect(text).toContain("Địa chỉ: 12 Nguyễn Huệ, Q1");
     expect(text).toContain("Sản phẩm: Combo test UX");
-    expect(text).toContain("COD: 300.000₫");
+    expect(text).toContain("COD: 300.000đ");
   });
 });

@@ -11,6 +11,10 @@ export interface OrderShareInput {
   } | null;
 }
 
+function formatCodForShare(value: number) {
+  return `${formatCurrency(value).replace(/\s*₫/u, "").trim()}đ`;
+}
+
 export function formatOrderShareText(order: OrderShareInput) {
   const lines = [
     `Mã đơn: ${order.order_code}`,
@@ -18,7 +22,7 @@ export function formatOrderShareText(order: OrderShareInput) {
     `SĐT: ${order.customer?.phone ?? "—"}`,
     `Địa chỉ: ${order.customer?.address?.trim() || "—"}`,
     `Sản phẩm: ${order.product_name}`,
-    `COD: ${formatCurrency(order.total_price).replace(/\s/g, "")}`,
+    `COD: ${formatCodForShare(order.total_price)}`,
   ];
 
   return lines.join("\n");
