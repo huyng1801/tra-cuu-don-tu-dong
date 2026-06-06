@@ -14,6 +14,7 @@ import { ORDER_STATUS_LABELS, ORDER_STATUS_VALUES } from "@/lib/constants";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { requireCurrentUserProfile } from "@/features/auth/service";
+import { DeleteOrderButton } from "@/features/orders/delete-order-button";
 import { listOrders } from "@/features/orders/repository";
 
 export default async function OrdersPage({
@@ -114,9 +115,18 @@ export default async function OrdersPage({
                 )}
               </DataCell>
               <DataCell className="text-right">
-                <Button asChild variant="outline" size="sm">
-                  <Link href={`/orders/${order.id}`}>Chi tiết</Link>
-                </Button>
+                <div className="flex justify-end gap-2">
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={`/orders/${order.id}`}>Sửa</Link>
+                  </Button>
+                  <DeleteOrderButton
+                    orderId={order.id}
+                    label="Xóa"
+                    redirectTo=""
+                    size="sm"
+                    variant="destructive"
+                  />
+                </div>
               </DataCell>
             </DataRow>
           ))}

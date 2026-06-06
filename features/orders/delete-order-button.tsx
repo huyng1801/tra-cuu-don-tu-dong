@@ -15,16 +15,32 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { Button, type ButtonProps } from "@/components/ui/button";
 
-export function DeleteOrderButton({ orderId }: { orderId: string }) {
+interface DeleteOrderButtonProps {
+  orderId: string;
+  label?: string;
+  redirectTo?: string;
+  size?: ButtonProps["size"];
+  variant?: ButtonProps["variant"];
+}
+
+export function DeleteOrderButton({
+  orderId,
+  label = "Xóa đơn hàng",
+  redirectTo = "/orders",
+  size = "default",
+  variant = "destructive",
+}: DeleteOrderButtonProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Xóa đơn hàng</Button>
+        <Button variant={variant} size={size}>
+          {label}
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -48,7 +64,9 @@ export function DeleteOrderButton({ orderId }: { orderId: string }) {
                 }
 
                 toast.success(result.message);
-                router.push("/orders");
+                if (redirectTo) {
+                  router.push(redirectTo);
+                }
                 router.refresh();
               });
             }}

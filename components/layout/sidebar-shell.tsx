@@ -145,7 +145,7 @@ function SidebarContent({
                 "flex items-center rounded-2xl px-4 py-3 text-sm font-medium",
                 active
                   ? "bg-[color:var(--sidebar-foreground)] text-[color:var(--sidebar)] shadow-lg shadow-black/10"
-                  : "text-[color:var(--sidebar-muted)] hover:bg-white/10 hover:text-[color:var(--sidebar-foreground)]",
+                  : "text-[color:var(--sidebar-muted)] hover:bg-[color:var(--accent)] hover:text-[color:var(--sidebar)]",
               )}
             >
               {item.label}
